@@ -291,6 +291,8 @@ __pycache__/
 *_log.html
 [Dd]ebug-*/
 [Rr]elease-*/
+**/App/AS_DEBUG/
+**/App/*.exe
 
 # sample
 sample/*.exe
