@@ -213,6 +213,21 @@
     <ClCompile Include="mruby\src\vm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbHSV.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MrbLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MrbVec2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MrbColorF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -590,6 +605,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mruby\include\value_array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbHSV.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbLine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbObject.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbVec2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbColorF.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

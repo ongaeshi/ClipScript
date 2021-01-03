@@ -111,6 +111,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MrbColorF.cpp" />
+    <ClCompile Include="MrbHSV.cpp" />
+    <ClCompile Include="MrbLine.cpp" />
+    <ClCompile Include="MrbVec2.cpp" />
     <ClCompile Include="mruby\src\array.c" />
     <ClCompile Include="mruby\src\backtrace.c" />
     <ClCompile Include="mruby\src\class.c" />
@@ -148,6 +152,7 @@
     <ClCompile Include="mruby\src\variable.c" />
     <ClCompile Include="mruby\src\version.c" />
     <ClCompile Include="mruby\src\vm.c" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -275,6 +280,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Main.hpp" />
+    <ClInclude Include="MrbColorF.hpp" />
+    <ClInclude Include="MrbHSV.hpp" />
+    <ClInclude Include="MrbLine.hpp" />
+    <ClInclude Include="MrbObject.hpp" />
+    <ClInclude Include="MrbVec2.hpp" />
     <ClInclude Include="mruby\include\error.h" />
     <ClInclude Include="mruby\include\mrbconf.h" />
     <ClInclude Include="mruby\include\mruby.h" />
@@ -309,6 +320,7 @@
     <ClInclude Include="mruby\include\node.h" />
     <ClInclude Include="mruby\include\opcode.h" />
     <ClInclude Include="mruby\include\value_array.h" />
+    <ClInclude Include="Util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
