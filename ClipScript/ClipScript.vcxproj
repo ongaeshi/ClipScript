@@ -114,6 +114,8 @@
     <ClCompile Include="MrbColorF.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
     <ClCompile Include="MrbLine.cpp" />
+    <ClCompile Include="MrbMisc.cpp" />
+    <ClCompile Include="MrbPoint.cpp" />
     <ClCompile Include="MrbVec2.cpp" />
     <ClCompile Include="mruby\src\array.c" />
     <ClCompile Include="mruby\src\backtrace.c" />
@@ -284,7 +286,9 @@
     <ClInclude Include="MrbColorF.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
     <ClInclude Include="MrbLine.hpp" />
+    <ClInclude Include="MrbMisc.hpp" />
     <ClInclude Include="MrbObject.hpp" />
+    <ClInclude Include="MrbPoint.hpp" />
     <ClInclude Include="MrbVec2.hpp" />
     <ClInclude Include="mruby\include\error.h" />
     <ClInclude Include="mruby\include\mrbconf.h" />
