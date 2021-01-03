@@ -155,11 +155,12 @@ void Main()
         args.remove(opt);
     }
 
-    opt = U"--watch";
-    if (args.includes(opt)) {
-        fSiv3DRubyState.isWatch = true;
-        args.remove(opt);
-    }
+    //opt = U"--watch";
+    //if (args.includes(opt)) {
+    //    fSiv3DRubyState.isWatch = true;
+    //    args.remove(opt);
+    //}
+    fSiv3DRubyState.isWatch = true;
 
     opt = U"--init";
     if (args.includes(opt)) {
