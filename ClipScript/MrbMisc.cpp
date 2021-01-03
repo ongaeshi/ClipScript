@@ -16,7 +16,7 @@ static mrb_value printstr(mrb_state *mrb, mrb_value self)
 {
     mrb_value str;
     mrb_get_args(mrb, "S", &str);
-    auto s = CharacterSet::FromUTF8(mrb_string_value_ptr(mrb, str));
+    auto s = Unicode::FromUTF8(mrb_string_value_ptr(mrb, str));
     Print << s;
     std::cout << s << std::endl;
     return str;
@@ -114,13 +114,13 @@ static mrb_value set_background(mrb_state *mrb, mrb_value self)
     mrb_value color;
     mrb_get_args(mrb, "o", &color);
 
-    Graphics::SetBackground(Util::ToColor(mrb, color));
+    Scene::SetBackground(Util::ToColor(mrb, color));
     return mrb_nil_value();
 }
 
 static mrb_value center(mrb_state *mrb, mrb_value self)
 {
-    return MrbVec2::ToMrb(mrb, new Vec2(Window::Center()));
+    return MrbVec2::ToMrb(mrb, new Vec2(Scene::Center()));
 }
 
 static mrb_value resize(mrb_state *mrb, mrb_value self)
@@ -129,24 +129,24 @@ static mrb_value resize(mrb_state *mrb, mrb_value self)
     mrb_bool centering = true;
     mrb_get_args(mrb, "ii|b", &width, &height, &centering);
 
-		return mrb_bool_value(Window::Resize(width, height, centering));
+	return mrb_bool_value(Window::Resize(width, height, WindowResizeOption::ResizeSceneSize, centering));
 }
 
 static mrb_value width(mrb_state *mrb, mrb_value self)
 {
-    return mrb_fixnum_value(Window::Width());
+    return mrb_fixnum_value(Scene::Width());
 }
 
 static mrb_value height(mrb_state *mrb, mrb_value self)
 {
-    return mrb_fixnum_value(Window::Height());
+    return mrb_fixnum_value(Scene::Height());
 }
 
 mrb_value radians(mrb_state *mrb, mrb_value self)
 {
     mrb_float deg;
     mrb_get_args(mrb, "f", &deg);
-    return mrb_float_value(mrb, Math::Radians(deg));
+    return mrb_float_value(mrb, Math::Radians(deg).asFloat());
 }
 }
 
@@ -223,7 +223,8 @@ void MrbMisc::Init(mrb_state* mrb)
     }
 
     {
-        struct RClass *cc = mrb_module_get(mrb, "Math");
+        //struct RClass *cc = mrb_module_get(mrb, "Math");
+        struct RClass* cc = mrb_define_module(mrb, "Math");
         mrb_define_class_method(mrb, cc, "radians", radians, MRB_ARGS_REQ(1));
     }
 }

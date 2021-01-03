@@ -23,7 +23,7 @@ puts "#{Vec2}: (#{vec.x}, #{vec.y})"
 
 # hue = 0
 
-# while System.update do
+while System.update do
   # texture.flip.draw
   # texture.mirror.draw
   # texture.draw
@@ -155,4 +155,4 @@ puts "#{Vec2}: (#{vec.x}, #{vec.y})"
   #   Circle.new(320, 240, 50).draw([255, 0, 0, 127])
   # end
   # camera.draw(Palette::Orange)
-# end
+end
