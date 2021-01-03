@@ -184,7 +184,8 @@ void Main()
 
     // TODO: Need option parser
     if (args.size() == 0) {
-        // TODO: help message
+        fSiv3DRubyState.filePath = U"main.rb";
+        fSiv3DRubyState.lastWriteTime = FileSystem::WriteTime(fSiv3DRubyState.filePath);
     }
     else if (args[0] == U"-e") {
         fSiv3DRubyState.evalString = args[1];
