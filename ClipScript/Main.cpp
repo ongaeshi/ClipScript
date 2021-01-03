@@ -1,9 +1,16 @@
-﻿
-#include <Siv3D.hpp> // OpenSiv3D v0.4.3
+﻿#include <Siv3D.hpp> // OpenSiv3D v0.4.3
+
 #include <mruby.h>
+#include <mruby/compile.h>
+#include <mruby/string.h>
 
 void Main()
 {
+	mrb_state* mrb = mrb_open();
+	mrb_value ret = mrb_load_string(mrb, "p 1 + 2 + 3");
+	mrb_value str = mrb_str_to_str(mrb, ret);
+	Print << Unicode::UTF8ToUTF32((RSTRING_PTR(str)));
+
 	// 背景を水色にする
 	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
 
@@ -30,7 +37,7 @@ void Main()
 		// [A] キーが押されたら
 		if (KeyA.down())
 		{
-			// Hello とデバッグ表示する
+			// Helloとデバッグ表示する
 			Print << U"Hello!";
 		}
 
