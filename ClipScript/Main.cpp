@@ -1,81 +1,211 @@
-﻿#include <Siv3D.hpp> // OpenSiv3D v0.4.3
+﻿#include <Siv3D.hpp>
+#include "Main.hpp"
+#include "MrbCamera2D.hpp"
+#include "MrbCircle.hpp"
+#include "MrbColorF.hpp"
+#include "MrbDrawableText.hpp"
+#include "MrbEmoji.hpp"
+#include "MrbFont.hpp"
+#include "MrbHSV.hpp"
+#include "MrbLine.hpp"
+#include "MrbLineString.hpp"
+#include "MrbMisc.hpp"
+#include "MrbPoint.hpp"
+#include "MrbPolygon.hpp"
+#include "MrbQuad.hpp"
+#include "MrbRect.hpp"
+#include "MrbRoundRect.hpp"
+#include "MrbTexture.hpp"
+#include "MrbTextureRegion.hpp"
+#include "MrbTexturedQuad.hpp"
+#include "MrbTriangle.hpp"
+#include "MrbVec2.hpp"
+#include "mruby.h"
+#include "mruby/array.h"
+#include "mruby/compile.h"
+#include "mruby/string.h"
+#include "mruby/dump.h"
+#include <Windows.h>
 
-#include <mruby.h>
-#include <mruby/compile.h>
-#include <mruby/string.h>
+
+extern "C" const uint8_t __declspec(align(4)) mrb_siv3druby_builtin[];
+
+namespace siv3druby {
+
+    Siv3DRubyState fSiv3DRubyState;
+
+    void setArgv(mrb_state* mrb)
+    {
+        int argc = fSiv3DRubyState.argv.count();
+        mrb_value ARGV = mrb_ary_new_capa(mrb, argc);
+
+        for (int i = 0; i < argc; i++) {
+            mrb_ary_push(mrb, ARGV, mrb_str_new_cstr(mrb, fSiv3DRubyState.argv[i].toUTF8().c_str()));
+        }
+
+        mrb_define_global_const(mrb, "ARGV", ARGV);
+    }
+
+    void loadBuiltin(mrb_state* mrb)
+    {
+        mrb_load_irep(mrb, mrb_siv3druby_builtin);
+    }
+
+    void mainLoop()
+    {
+        Window::SetTitle(L"SketchWaltz 0.0.4 dev");
+
+        mrb_state* mrb = mrb_open();
+
+        setArgv(mrb);
+        loadBuiltin(mrb);
+        MrbCamera2D::Init(mrb);
+        MrbCircle::Init(mrb);
+        MrbColorF::Init(mrb);
+        MrbDrawableText::Init(mrb);
+        MrbEmoji::Init(mrb);
+        MrbFont::Init(mrb);
+        MrbHSV::Init(mrb);
+        MrbLine::Init(mrb);
+        MrbLineString::Init(mrb);
+        MrbMisc::Init(mrb);
+        MrbPoint::Init(mrb);
+        MrbPolygon::Init(mrb);
+        MrbQuad::Init(mrb);
+        MrbRect::Init(mrb);
+        MrbRoundRect::Init(mrb);
+        MrbTexture::Init(mrb);
+        MrbTextureRegion::Init(mrb);
+        MrbTexturedQuad::Init(mrb);
+        MrbTriangle::Init(mrb);
+        MrbVec2::Init(mrb);
+
+        String s;
+
+        if (fSiv3DRubyState.evalString != L"") {
+            s = fSiv3DRubyState.evalString;
+        }
+        else {
+            TextReader reader(fSiv3DRubyState.filePath);
+            s = reader.readAll();
+        }
+
+        {
+            mrb_value ret = mrb_load_string(mrb, s.toUTF8().c_str());
+
+            if (mrb->exc) {
+                Graphics::SetBackground(Palette::Black);
+
+                mrb_value msg = mrb_funcall(mrb, mrb_obj_value(mrb->exc), "inspect", 0);
+                const char* cstr = mrb_string_value_ptr(mrb, msg);
+                Print << CharacterSet::FromUTF8(cstr);
+
+                while (System::Update()) {
+                    if (fSiv3DRubyState.isReload) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        mrb_close(mrb);
+    }
+
+    void threadLoop()
+    {
+        while (true) {
+            auto writeTime = FileSystem::WriteTime(fSiv3DRubyState.filePath);
+
+            if (writeTime > fSiv3DRubyState.lastWriteTime) {
+                fSiv3DRubyState.lastWriteTime = writeTime;
+                fSiv3DRubyState.isReload = true;
+            }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    }
+
+    Array<String> getArgs()
+    {
+        auto argv = Array<String>();
+
+        int nArgs = 0;
+        LPWSTR* szArglist = ::CommandLineToArgvW(::GetCommandLineW(), &nArgs);
+
+        for (int i = 1; i < nArgs; i++) {
+            argv << String(szArglist[i]);
+        }
+        ::LocalFree(szArglist);
+
+        return argv;
+    }
+}
+
 
 void Main()
 {
-	mrb_state* mrb = mrb_open();
-	mrb_value ret = mrb_load_string(mrb, "p 1 + 2 + 3");
-	mrb_value str = mrb_str_to_str(mrb, ret);
-	Print << Unicode::UTF8ToUTF32((RSTRING_PTR(str)));
+    using namespace siv3druby;
 
-	// 背景を水色にする
-	Scene::SetBackground(ColorF(0.8, 0.9, 1.0));
+    auto args = getArgs();
 
-	// 大きさ 60 のフォントを用意
-	const Font font(60);
+    auto opt = L"--capture";
+    if (args.include(opt)) {
+        fSiv3DRubyState.isCapture = true;
+        args.remove(opt);
+    }
 
-	// 猫のテクスチャを用意
-	const Texture cat(Emoji(U"🐈"));
+    opt = L"--watch";
+    if (args.include(opt)) {
+        fSiv3DRubyState.isWatch = true;
+        args.remove(opt);
+    }
 
-	// 猫の座標
-	Vec2 catPos(640, 450);
+    opt = L"--init";
+    if (args.include(opt)) {
+        args.remove(opt);
 
-	while (System::Update())
-	{
-		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+        if (args.count() == 1) {
+            if (FileSystem::Exists(args[0])) {
+                std::cout << "error: Already exists " << args[0] << std::endl;
+            }
+            else {
+                auto writer = TextWriter(args[0]);
+                writer.writeUTF8(u8"# Sample: https://scrapbox.io/sketchwaltz\nGraphics.set_background([10, 10, 10])\nt = Texture.new(Emoji.new(\"👻\"))\nfont = Font.new(35)\ny = -300\n\nwhile System.update do\n  t.draw_at(Cursor.pos.x, Cursor.pos.y)\n  font[\"Hello, World!🐕\"].draw_at(Window.center.x, Window.center.y + y, Palette::White)\n  y += 1 if y < 0\n\n  Rect.new(0, 400, 640, 400).draw(Palette::Lightseagreen)\nend\n");
 
-		// 大きさをアニメーションさせて猫を表示する
-		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
+                std::cout << "Create a script file " << args[0] << std::endl;
+            }
+        }
+        else {
+            std::cout << "swk --init [filename]" << std::endl;
+        }
 
-		// マウスカーソルに追従する半透明の赤い円を描く
-		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
+        return;
+    }
 
-		// [A] キーが押されたら
-		if (KeyA.down())
-		{
-			// Helloとデバッグ表示する
-			Print << U"Hello!";
-		}
+    // TODO: Need option parser
+    if (args.count() == 0) {
+        // TODO: help message
+    }
+    else if (args[0] == L"-e") {
+        fSiv3DRubyState.evalString = args[1];
+        fSiv3DRubyState.argv = args.slice(2);
+    }
+    else {
+        fSiv3DRubyState.filePath = String(args[0]);
+        fSiv3DRubyState.lastWriteTime = FileSystem::WriteTime(fSiv3DRubyState.filePath);
+        fSiv3DRubyState.argv = args.slice(1);
+    }
 
-		// ボタンが押されたら
-		if (SimpleGUI::Button(U"Move the cat", Vec2(600, 20)))
-		{
-			// 猫の座標を画面内のランダムな位置に移動する
-			catPos = RandomVec2(Scene::Rect());
-		}
-	}
+    if (fSiv3DRubyState.isWatch) {
+        std::thread t([&] {
+            threadLoop();
+            });
+        t.detach();
+    }
+
+    do {
+        ClearPrint();
+        fSiv3DRubyState.isReload = false;
+        mainLoop();
+    } while (fSiv3DRubyState.isReload);
 }
-
-//
-// = アドバイス =
-// Debug ビルドではプログラムの最適化がオフになります。
-// 実行速度が遅いと感じた場合は Release ビルドを試しましょう。
-// アプリをリリースするときにも、Release ビルドにするのを忘れないように！
-//
-// 思ったように動作しない場合は「デバッグの開始」でプログラムを実行すると、
-// 出力ウィンドウに詳細なログが表示されるので、エラーの原因を見つけやすくなります。
-//
-// = お役立ちリンク =
-//
-// OpenSiv3D リファレンス
-// https://siv3d.github.io/ja-jp/
-//
-// チュートリアル
-// https://siv3d.github.io/ja-jp/tutorial/basic/
-//
-// よくある間違い
-// https://siv3d.github.io/ja-jp/articles/mistakes/
-//
-// サポートについて
-// https://siv3d.github.io/ja-jp/support/support/
-//
-// Siv3D ユーザコミュニティ Slack への参加
-// https://siv3d.github.io/ja-jp/community/community/
-//
-// 新機能の提案やバグの報告
-// https://github.com/Siv3D/OpenSiv3D/issues
-//
