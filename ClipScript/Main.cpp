@@ -52,6 +52,15 @@ namespace siv3druby {
     //    mrb_load_irep(mrb, mrb_siv3druby_builtin);
     //}
 
+    void loadLibDir(mrb_state* mrb)
+    {
+        TextReader reader(U"lib/__builtin.rb");
+        auto s = reader.readAll();
+
+        mrb_value ret = mrb_load_string(mrb, s.toUTF8().c_str());
+        // TODO: error
+    }
+
     void mainLoop()
     {
         Window::SetTitle(U"SketchWaltz 0.0.4 dev");
@@ -80,6 +89,7 @@ namespace siv3druby {
         //MrbTexturedQuad::Init(mrb);
         //MrbTriangle::Init(mrb);
         MrbVec2::Init(mrb);
+        loadLibDir(mrb);
 
         String s;
 
