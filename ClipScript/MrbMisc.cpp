@@ -199,7 +199,7 @@ void MrbMisc::Init(mrb_state* mrb)
     {
         struct RClass *cc = mrb_define_module(mrb, "Graphics");
 
-        mrb_define_class_method(mrb, cc, "set_background", set_background, MRB_ARGS_NONE());
+        mrb_define_class_method(mrb, cc, "set_background", set_background, MRB_ARGS_REQ(1));
     }
 
     {
