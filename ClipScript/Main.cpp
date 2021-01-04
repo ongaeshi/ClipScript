@@ -1,4 +1,6 @@
 ﻿#include <Siv3D.hpp>
+
+#include <filesystem>
 #include "Main.hpp"
 //#include "MrbCamera2D.hpp"
 //#include "MrbCircle.hpp"
@@ -25,9 +27,8 @@
 #include "mruby/compile.h"
 #include "mruby/string.h"
 #include "mruby/dump.h"
-#include <Windows.h>
 #include <thread>
-
+#include <Windows.h>
 
 //extern "C" const uint8_t __declspec(align(4)) mrb_siv3druby_builtin[];
 
@@ -54,11 +55,13 @@ namespace siv3druby {
 
     void loadLibDir(mrb_state* mrb)
     {
-        TextReader reader(U"lib/__builtin.rb");
-        auto s = reader.readAll();
+        for (const auto& file : std::filesystem::directory_iterator("lib")) {
+            TextReader reader(Unicode::FromUTF8(file.path().string()));
+            auto s = reader.readAll();
 
-        mrb_value ret = mrb_load_string(mrb, s.toUTF8().c_str());
-        // TODO: error
+            mrb_value ret = mrb_load_string(mrb, s.toUTF8().c_str());
+            // TODO: error
+        }
     }
 
     void mainLoop()
