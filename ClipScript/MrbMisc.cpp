@@ -5,6 +5,7 @@
 #include "MrbVec2.hpp"
 #include "Util.hpp"
 #include "mruby.h"
+#include "mruby/array.h"
 #include "mruby/irep.h"
 #include "mruby/string.h"
 
@@ -153,30 +154,26 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 {
     static const Font font(20);
 
-    double time = 0.0;
-    auto button = U"▶";
-    double rate = 1.0f;
-    auto loopTime = 10.0 * 0.001;
+    mrb_float time, end_time;
+    mrb_bool is_stop;
+    mrb_get_args(mrb, "ffb", &time, &end_time, &is_stop);
+
+    auto button = !is_stop ? U"▶" : U"⏹️";
 
     if (SimpleGUI::Button(button, Vec2(20, 500))) {
-        if (button == U"▶") {
-            rate = 0.0f;
-            button = U"⏹️";
-        }
-        else {
-            rate = 1.0f;
-            button = U"▶";
-        }
+        is_stop = !is_stop;
     }
 
-    if (SimpleGUI::Slider(time, 0.0, loopTime, Vec2(180, 500), 600)) {
-        rate = 0.0f;
-        button = U"⏹️";
+    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(180, 500), 600)) {
+        is_stop = true;
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(100, 500);
 
-    return mrb_nil_value();
+    mrb_value array = mrb_ary_new(mrb);
+    mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
+    mrb_ary_push(mrb, array, mrb_bool_value(is_stop));
+    return array;
 }
 }
 
@@ -188,7 +185,7 @@ void MrbMisc::Init(mrb_state* mrb)
         mrb_define_method(mrb, krn, "__printstr__", printstr, MRB_ARGS_REQ(1));
         mrb_define_method(mrb, krn, "clear", clear, MRB_ARGS_NONE());
         mrb_define_method(mrb, krn, "random", random, MRB_ARGS_OPT(2));
-        mrb_define_method(mrb, krn, "timeline_ui", timeline_ui, MRB_ARGS_REQ(4));
+        mrb_define_method(mrb, krn, "timeline_ui", timeline_ui, MRB_ARGS_REQ(2));
     }
 
     {
