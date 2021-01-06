@@ -1,4 +1,4 @@
-#include "MrbMisc.hpp"
+﻿#include "MrbMisc.hpp"
 
 #include "Main.hpp"
 #include "MrbPoint.hpp"
@@ -148,6 +148,36 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
     mrb_get_args(mrb, "f", &deg);
     return mrb_float_value(mrb, Math::Radians(deg).asFloat());
 }
+
+mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
+{
+    static const Font font(20);
+
+    double time = 0.0;
+    auto button = U"▶";
+    double rate = 1.0f;
+    auto loopTime = 10.0 * 0.001;
+
+    if (SimpleGUI::Button(button, Vec2(20, 500))) {
+        if (button == U"▶") {
+            rate = 0.0f;
+            button = U"⏹️";
+        }
+        else {
+            rate = 1.0f;
+            button = U"▶";
+        }
+    }
+
+    if (SimpleGUI::Slider(time, 0.0, loopTime, Vec2(180, 500), 600)) {
+        rate = 0.0f;
+        button = U"⏹️";
+    }
+
+    font(U"{:3.2f}"_fmt(time)).draw(100, 500);
+
+    return mrb_nil_value();
+}
 }
 
 //----------------------------------------------------------
@@ -158,6 +188,7 @@ void MrbMisc::Init(mrb_state* mrb)
         mrb_define_method(mrb, krn, "__printstr__", printstr, MRB_ARGS_REQ(1));
         mrb_define_method(mrb, krn, "clear", clear, MRB_ARGS_NONE());
         mrb_define_method(mrb, krn, "random", random, MRB_ARGS_OPT(2));
+        mrb_define_method(mrb, krn, "timeline_ui", timeline_ui, MRB_ARGS_REQ(4));
     }
 
     {

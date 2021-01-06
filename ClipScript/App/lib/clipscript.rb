@@ -1,5 +1,8 @@
 @@scripts = []
 @@drawers = []
+@@time = 0.0
+@@end_time = 10.0
+@@is_stop = false
 
 def cls(c = Palette::Lightgrey)
   Graphics.set_background(c)
@@ -23,6 +26,8 @@ def run
     @@drawers.each do |e| 
       e.call
     end
+
+    @@is_stop = timeline_ui(20, 500, @@time, @@end_time)
   end
 end
 
