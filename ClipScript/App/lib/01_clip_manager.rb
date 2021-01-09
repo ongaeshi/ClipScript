@@ -15,6 +15,14 @@ class ClipManager
     @clips.clip
   end
   
+  def remove_clip(clip)
+    @clips.delete(clip)
+  end
+
+  def clear_clip
+    @clips = []
+  end
+
   def run
     while System.update do
       @time += 0.016 unless @is_stop # TODO: Deltatime
@@ -25,6 +33,7 @@ class ClipManager
       end
 
       @clips.each do |e|
+        e.run_script
         e.update
         e.draw
       end
@@ -32,7 +41,6 @@ class ClipManager
       @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
     end
   end  
-
-  def cls
-  end
 end
+
+$clip_manager = ClipManager.new
