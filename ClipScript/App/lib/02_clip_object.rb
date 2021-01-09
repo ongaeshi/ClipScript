@@ -1,5 +1,6 @@
 class ClipObject
   def initialize
+    $clip_manager.add_clip(self)
     @fiber = Fiber.new { script }
   end
 
