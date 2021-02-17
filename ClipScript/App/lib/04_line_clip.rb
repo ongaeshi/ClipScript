@@ -1,5 +1,6 @@
 class LineClip < ClipObject
   def initialize(x, y, width, height, opt = {})
+    super()
     @x = x
     @y = y
     @width = width
