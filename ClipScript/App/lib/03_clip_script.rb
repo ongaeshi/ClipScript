@@ -1,7 +1,7 @@
 # Global functions
 
 def script(&block)
-  $clip_manager.script(block)
+  $clip_manager.script(&block)
 end
 
 def run

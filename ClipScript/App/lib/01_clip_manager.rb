@@ -12,7 +12,7 @@ class ClipManager
   end
 
   def add_clip(clip)
-    @clips.clip
+    @clips.push(clip)
   end
   
   def remove_clip(clip)
