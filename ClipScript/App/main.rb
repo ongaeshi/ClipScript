@@ -9,6 +9,8 @@ script do
   wait 20
   l4 = line(100, 200, 100, 100)
 
+  wait 60
+
   (1..20).each do
     l1.x1 += 1
     l2.x0 += 1

@@ -3,7 +3,7 @@ class ClipManager
     @scripts = []
     @clips = []
     @time = 0.0
-    @end_time = 1.0
+    @end_time = 4.0
     @is_stop = false
   end
 
@@ -26,7 +26,11 @@ class ClipManager
   def run
     while System.update do
       @time += 0.016 unless @is_stop # TODO: Deltatime
-      @time -= @end_time if @time > @end_time
+
+      if @time > @end_time
+        @time -= @end_time 
+        @clips = []
+      end
       
       @scripts.each do |e| 
         e.resume if e.alive?
