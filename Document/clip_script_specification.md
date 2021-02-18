@@ -86,7 +86,7 @@ scriptで作られるのはトップレベルのクリップに過ぎない
   - 現在実行中のClipScript
   - タイムラインUI
   - 経過時間の管理
-- ClipScript
+- BlockScript < ClipObject
   - script do ～ end につき1つ生成される
   - scriptメソッドを持つClipObjectも1つ持つ
   - 複数のClipObjectを持つことができる
@@ -110,22 +110,19 @@ scriptで作られるのはトップレベルのクリップに過ぎない
   - 線を描画するクリップ
 
 ## 親子関係
-ClipScriptとClipObjectを組み合わせることで複雑な構造を作ることが可能。
+ClipObjectが子を再帰的に持つことで複雑な構造を作ることが可能。
 
 ```
 ClipManager 
-  ClipScript
+  BlockScript
     ClipObject
     ClipObject
-      ClipScript
-        ClipObject
-        ClipObject
-        ClipObject
-          ClipScript
-            ClipObject
+      ClipObject
+      ClipObject
+      ClipObject
         ClipObject
     ClipObject
-  ClipScript
+  BlockScript
     ClipObject
     ClipObject
 ```
@@ -152,7 +149,7 @@ ClipManager
 - target_time .. 現在スクリプトの目標時間まで待つ
 
 ## 考察
-- ClipScriptとClipObjectを別オブジェクトとして分ける意味は何？
+- ClipScriptとClipObjectを別オブジェクトとして分ける意味は何？ →　分けなくてよさそう
   - ClipObjectがscript機能を持つ、でもいいのだろうか
 - ClipScriptやClipObjectの再利用
   - 逆再生するときに毎回生成すると遅いのではないか
