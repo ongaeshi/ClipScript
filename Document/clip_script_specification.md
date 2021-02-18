@@ -1,4 +1,85 @@
 # ClipScript仕様
+## 疑似コード
+```ruby
+class ClipObject
+  def initialize
+    $clip_manager.add_to_current_clip(self)
+    @time = 0.0 # 生成されたときの時間は常に0
+  end
+
+  def update(delta_time)
+    # 子クリップを更新
+    @clips.each {|e| e.update(delta_time) }
+
+    # 自身と子クリップどちらを先に再生する？
+    # 生成したフレームではまだ子クリップを動かしたくない気がするので子クリップ→自身の順で
+    @time += delta_time　　# ここで delta_time * @rate にすれば再生レートが更新できる
+
+    $clip_manager.set_current_clip(self)  # resume中に生成されたクリップはここで設定したクリップに設定される
+      @fiber.resume
+    end
+  end
+
+  def draw_with_child
+    # 描画順は親→子の順の方がよさそう？
+    draw   # 継承先でオーバーライドしてよい
+    @clip.each {|e| e.draw_with_child }
+  end
+
+  def add_script(&block)
+    @block = block  # 再起動用にblockを保持
+    @fiber = Fiber.new { @block.call }
+  end
+
+  def reset()
+    @clips = []  # 子クリップがあれば空に
+    @fiber = Fiber.new { @block.call } if @block  # ファイバー再生成
+  end
+end
+
+class BlockScript < ClipObject
+  def initialize(&block)
+    super()
+    add_script(&block)
+  end
+end
+
+class LoopBlock < ClipObject
+  def initialize()
+    super()
+    
+    add_sciprt do
+      loop do
+        line 0, 0, 100, 100
+        wait 0.5
+        line 100, 100, 0, 200
+        wait 0.5
+        clear_clips  # 子クリップを全て削除(描画されなくなる)
+        wait 0.5
+      end
+    end
+  end
+end
+
+def script(&block)
+  add_clip(BlockScript.new(&block))　# ここで呼ばれるadd_clipもグローバル関数(ClipManagerに直接クリップを追加する)
+end
+
+script do
+  line 0, 0, 100, 100
+  wait 0.5
+  line 100, 100, 0, 200
+  wait 0.5
+end
+```
+
+## waitやtarget_timeはClipObjectにもグローバル空間にも定義する
+wait ... グローバル時刻(ClipManager#time)まで待つ
+ClipObject#wait ... 自身の@timeまで待つ(生成されてからの経過時間)
+
+ClipObject#update(delta_time)で常に渡す
+scriptで作られるのはトップレベルのクリップに過ぎない
+
 ## 基本設計
 - ClipManager
   - プログラム全体で1つ
