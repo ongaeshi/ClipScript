@@ -22,7 +22,11 @@ class ClipManager
 
       if @time > @end_time
         @time -= @end_time 
-        # TODO: @root.reset_clip
+
+        root.children.each do |clip|
+          clip.clear_clip
+          clip.reset_script
+        end
       end
       
       @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
