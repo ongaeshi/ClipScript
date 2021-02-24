@@ -13,8 +13,9 @@ class ClipManager
   end
 
   def run
+    delta_time = 0.016 # TODO: get_delta_time
+
     while System.update do
-      delta_time = !@is_stop ? 0.016 : 0.0 # TODO: get_delta_time
       @time += delta_time
 
       root.update(delta_time)
@@ -28,8 +29,20 @@ class ClipManager
           clip.reset_script
         end
       end
-      
+
       @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
+    
+      unless @is_stop
+        delta_time = 0.016
+      else
+        root.children.each do |c|
+          c.clear_clip
+          c.reset_script
+        end
+
+        delta_time = @time
+        @time = 0.0
+      end
     end
   end  
 end

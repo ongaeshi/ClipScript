@@ -43,6 +43,7 @@ class ClipObject
   end
 
   def reset_script
+    @time = 0.0
     @fiber = Fiber.new { @block.call(self) } if @block
   end
 
