@@ -9,7 +9,7 @@ script do |c|
   c.wait 0.3
   l4 = c.line(100, 200, 100, 100)
 
-  c.wait 1
+  c.wait 1.0
 
   (1..20).each do
     l1.x1 += 1
@@ -35,7 +35,7 @@ script do |c|
     c.wait 0.01
   end
 
-  c.wait 1
+  c.wait 1.0
 end
 
 run

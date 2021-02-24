@@ -26,7 +26,7 @@ class ClipObject
     @parent = parent
     @parent.add_clip(self)
     @children = []
-    @time = 0.0
+    @time = @target_time = 0.0
   end
 
   def add_clip(clip)
@@ -43,7 +43,7 @@ class ClipObject
   end
 
   def reset_script
-    @time = 0.0
+    @time = @target_time = 0.0
     @fiber = Fiber.new { @block.call(self) } if @block
   end
 
@@ -58,12 +58,13 @@ class ClipObject
   end
 
   def wait(sec)
-    until_time(@time + sec)
+    until_time(@target_time + sec)
   end
 
   def until_time(t)
+    @target_time = t
     loop do
-      break if @time >= t
+      break if @time >= @target_time
       Fiber.yield
     end
   end
