@@ -1,6 +1,7 @@
 # ClipScript仕様
 ## TODO
-- 生成時には親の時間を引継ぎ
+- 何か時間がずれてる
+- 子を生成したときは @time = parent.@time - parent.@target_time で生成
 
 ## 疑似コード ver2 (コンストラクタにparentを渡す)
 - 座標系を表現するには TransformClip の概念が必要
