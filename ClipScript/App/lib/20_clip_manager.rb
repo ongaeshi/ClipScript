@@ -9,7 +9,7 @@ class ClipManager
   end
 
   def script(&block)
-    root.add_clip(BlockClip.new(root, &block))
+    BlockClip.new(root, &block)
   end
 
   def run
