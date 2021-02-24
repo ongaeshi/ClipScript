@@ -1,26 +1,15 @@
 class ClipManager
+  attr_reader :root
+
   def initialize
-    @scripts = []
-    @clips = []
+    @root = RootClip.new
     @time = 0.0
     @end_time = 4.0
     @is_stop = false
   end
 
   def script(&block)
-    @scripts.push(Fiber.new { loop { block.call } })
-  end
-
-  def add_clip(clip)
-    @clips.push(clip)
-  end
-  
-  def remove_clip(clip)
-    @clips.delete(clip)
-  end
-
-  def clear_clip
-    @clips = []
+    @root.add_clip(BlockClip.new(&block))
   end
 
   def run
@@ -48,3 +37,13 @@ class ClipManager
 end
 
 $clip_manager = ClipManager.new
+
+# Global functions
+
+def script(&block)
+  $clip_manager.script(&block)
+end
+
+def run
+  $clip_manager.run
+end
