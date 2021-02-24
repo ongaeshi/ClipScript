@@ -1,24 +1,74 @@
 class ClipObject
-  def initialize
-    $clip_manager.add_clip(self)
-    @fiber = Fiber.new { script }
+  attr_reader :parent
+  attr_reader :children
+
+  def initialize(parent)
+    @parent = parent
+    @parent.add_clip(self)
+    @children = []
+    @time = 0.0
   end
 
-  def run_script
-    @fiber.resume if @fiber.alive?
+  def add_clip(clip)
+    @children.add(clip)
   end
 
-  def dispose
-    $clip_manager.remove_clip(@fiber)
+  def clear_clip
+    @children = []
   end
 
-  def script
+  def set_script(&block)
+    @block = block
+    reset_script
   end
 
-  def update
+  def reset_script
+    @fiber = Fiber.new { @block.call(self) } if @block
+  end
+
+  def update(delta_time)
+    @children.each {|e| e.update(delta_time) }
+    @time += delta_time # TODO: delta_time * @rate
+    @fiber.resume if @fiber && @fiber.alive?
   end
 
   def draw
+    @children.each {|e| e.draw }
   end
 
+  def wait(sec)
+    until_time(@time + sec)
+  end
+
+  def until_time(t)
+    loop do
+      break if @time >= t
+      Fiber.yield
+    end
+  end
+
+  def line(x1, y1, x2, y2)
+    LineClip.new(self, x1, y1, x2, y2)
+  end
 end
+
+class RootClip
+  attr_reader :children
+  
+  def initialize
+    @children = []
+  end
+
+  def add_clip(clip)
+    @children.add(clip)
+  end
+
+  def update(delta_time)
+    @children.each {|e| e.update(delta_time) }
+  end
+
+  def draw
+    @children.each {|e| e.draw }
+  end
+end
+
