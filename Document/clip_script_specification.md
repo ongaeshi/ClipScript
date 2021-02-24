@@ -1,4 +1,136 @@
 # ClipScript仕様
+## 疑似コード ver2 (コンストラクタにparentを渡す)
+- 座標系を表現するには TransformClip の概念が必要
+  - そんなことないや、parentが指定オブジェクトなことを前提に取得すればいいだけだ
+  - ClipObject自体は座標系を提供しなくてよい
+- ClipManagerがRootのClipScriptであればよいのか？
+- ClipMangerがそれぞれ子を管理するのは生成したクリップ全てに対して一括操作するため
+  - clsとか
+  - 
+
+```ruby
+class RootClip  # Not ClipObject(ダックタイピングする)
+  @children = []
+
+  def add_clip(child)
+    @children.add(child)
+  end
+
+  def update(delta_time)
+    @children.each {|e| e.update(delta_time) }
+  end
+
+  def draw
+    @children.each {|e| e.draw }
+  end
+end
+
+class ClipObject 
+  def initialize(parent)
+    @parent = parent
+    @parent.add_clip(self)
+    @children = []
+    @time = 0.0
+    @rate = 1.0 # あると楽しそう
+  end
+
+  def add_clip(child)
+    @children.add(child)
+  end
+
+  def update(delta_time)
+    # 子クリップを更新
+    @children.each {|e| e.update(delta_time) }
+
+    # 自身と子クリップどちらを先に再生する？
+    # 生成したフレームではまだ子クリップを動かしたくない気がするので子クリップ→自身の順で
+    @time += delta_time　　# ここで delta_time * @rate にすれば再生レートが更新できる
+
+    # @fiberがある場合は更新
+    if @fiber && @fiber.alive?
+      @fiber.resume
+    end
+  end
+
+  def draw
+    # デフォルト実装は子に伝搬するだけ
+    # LineClipのような描画専用クリップはオーバーライドしてしまってよい(子供いないし)
+    @children.each {|e| e.draw }
+  end
+
+  def set_script(&block)
+    @block = block  # 再起動用にblockを保持
+    @fiber = Fiber.new { @block.call(self) }
+  end
+
+  def reset()
+    @children = []  # 子クリップがあれば空に
+    @fiber = Fiber.new { @block.call(self) } if @block  # ファイバー再生成
+  end
+
+  def wait(sec)
+    target_time = @time + sec
+
+    loop do
+      break if @time >= target_time
+      Fiber.yield
+    end
+  end
+
+  def target_time(target_time)
+    loop do
+      break if @time >= target_time
+      Fiber.yield
+    end
+  end
+
+  def line(x1, y1, x2, y2)
+    LineClip.new(self, x1, y1, x2, y2)
+  end
+end
+
+class ScriptClip < ClipObject
+  def initialize(parent, &block)
+    super(parent)
+    set_script(&block)
+  end
+end
+
+class LoopBlock < ClipObject
+  def initialize(parent)
+    super(parent)
+    
+    set_sciprt do
+      loop do
+        line 0, 0, 100, 100
+        wait 0.5
+        line 100, 100, 0, 200
+        wait 0.5
+        clear_clips  # 子クリップを全て削除(描画されなくなる)
+        wait 0.5
+      end
+    end
+  end
+end
+
+class ClipObject
+  def loop_block(x, y)
+    LoopBlock.new(self, x, y)
+  end
+end
+
+def script(&block)
+  $clip_manager.root.add_clip(BlockScript.new(&block))　# ここで呼ばれるadd_clipもグローバル関数(ClipManagerに直接クリップを追加する)
+end
+
+script do |c|
+  c.line 0, 0, 100, 100
+  c.wait 0.5
+  c.line 100, 100, 0, 200
+  c.wait 0.5
+end
+```
+
 ## 疑似コード
 ```ruby
 class ClipObject
