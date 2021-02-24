@@ -6,7 +6,7 @@ class RootClip
   end
 
   def add_clip(clip)
-    @children.add(clip)
+    @children.push(clip)
   end
 
   def update(delta_time)
@@ -30,7 +30,7 @@ class ClipObject
   end
 
   def add_clip(clip)
-    @children.add(clip)
+    @children.push(clip)
   end
 
   def clear_clip

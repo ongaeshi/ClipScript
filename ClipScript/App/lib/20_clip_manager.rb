@@ -9,28 +9,22 @@ class ClipManager
   end
 
   def script(&block)
-    @root.add_clip(BlockClip.new(&block))
+    root.add_clip(BlockClip.new(root, &block))
   end
 
   def run
     while System.update do
-      @time += 0.016 unless @is_stop # TODO: Deltatime
+      delta_time = !@is_stop ? 0.016 : 0.0 # TODO: get_delta_time
+      @time += delta_time
+
+      root.update(delta_time)
+      root.draw
 
       if @time > @end_time
         @time -= @end_time 
-        @clips = []
+        # TODO: @root.reset_clip
       end
       
-      @scripts.each do |e| 
-        e.resume if e.alive?
-      end
-
-      @clips.each do |e|
-        e.run_script
-        e.update
-        e.draw
-      end
-  
       @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
     end
   end  
