@@ -1,8 +1,10 @@
 class RootClip
   attr_reader :children
+  attr_reader :time, :target_time
   
   def initialize
     @children = []
+    @time = @target_time = 0
   end
 
   def add_clip(clip)
@@ -10,6 +12,7 @@ class RootClip
   end
 
   def update(delta_time)
+    @time += delta_time
     @children.each {|e| e.update(delta_time) }
   end
 
@@ -19,14 +22,16 @@ class RootClip
 end
 
 class ClipObject
-  attr_reader :parent
-  attr_reader :children
+  attr_reader :parent, :children
+  attr_reader :time, :target_time
 
   def initialize(parent)
     @parent = parent
     @parent.add_clip(self)
     @children = []
-    @time = @target_time = 0.0
+    @time = parent.time - parent.target_time
+    @target_time = 0.0
+    @is_first_updated = false
   end
 
   def add_clip(clip)
@@ -48,9 +53,15 @@ class ClipObject
   end
 
   def update(delta_time)
-    @children.each {|e| e.update(delta_time) }
-    @time += delta_time # TODO: delta_time * @rate
+    if @is_first_updated
+      @time += delta_time # TODO: delta_time * @rate
+    else
+      @is_first_updated = true
+    end
+
     @fiber.resume if @fiber && @fiber.alive?
+
+    @children.each {|e| e.update(delta_time) }
   end
 
   def draw
