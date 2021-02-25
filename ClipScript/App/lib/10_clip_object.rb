@@ -38,6 +38,12 @@ class ClipObject
     @children.push(clip)
   end
 
+  def reset
+    clear_clip
+    reset_script
+    reset_time
+  end
+
   def clear_clip
     @children = []
   end
@@ -48,8 +54,11 @@ class ClipObject
   end
 
   def reset_script
-    @time = @target_time = 0.0
     @fiber = Fiber.new { @block.call(self) } if @block
+  end
+
+  def reset_time
+    @time = @target_time = 0.0
   end
 
   def update(delta_time)

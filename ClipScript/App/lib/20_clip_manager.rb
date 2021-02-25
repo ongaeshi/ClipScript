@@ -23,12 +23,11 @@ class ClipManager
       root.draw
 
       if @time > @end_time
-        @time -= @end_time 
+        @time = 0
 
-        # root.children.each do |clip|
-        #   clip.clear_clip
-        #   clip.reset_script
-        # end
+        root.children.each do |c|
+          c.reset
+        end
       end
 
       prev_time = @time
@@ -40,8 +39,7 @@ class ClipManager
       else
         if @time < prev_time
           root.children.each do |c|
-            c.clear_clip
-            c.reset_script
+            c.reset
           end
 
           delta_time = @time
