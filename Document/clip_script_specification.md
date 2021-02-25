@@ -1,7 +1,13 @@
 # ClipScript仕様
 ## TODO
-- 何か時間がずれてる
-- 子を生成したときは @time = parent.@time - parent.@target_time で生成
+- (DONE) 何か時間がずれてる
+- 動くclipのサンプルを書く
+  - 1秒かけて上に伸びる矢印とかどうか
+  - 多分タイムラインで動かすと再現性がない、↓の実装が必要
+- 子を生成したときはマイナス時間から始める？
+  - 基本的には親の target_time で射出したという前提でよい
+  - @time = parent.target_time - parent.time でOK?
+  - そのあと delta_time で update すれば意図的に辻褄が会うはず？
 
 ## 疑似コード ver2 (コンストラクタにparentを渡す)
 - 座標系を表現するには TransformClip の概念が必要
