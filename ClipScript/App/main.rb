@@ -44,4 +44,4 @@ script do |c|
   c.wait 100
 end
 
-run
+App.run
