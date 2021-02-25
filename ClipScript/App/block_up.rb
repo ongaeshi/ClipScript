@@ -1,14 +1,11 @@
-# Graphics.set_background(Palette::Steelblue)
-
 class BlockUp < ClipObject
-  WIDTH = 40
-  HEIGHT = 40
-
-  def initialize(parent, x, y)
+  def initialize(parent, x, y, width = 40, height = 40)
     super(parent)
 
     @x = x
     @y = y
+    @width = width
+    @height = height
     @speed = 0.1
 
     set_script do
@@ -24,8 +21,8 @@ class BlockUp < ClipObject
   def draw
     x1 = @x
     y1 = @y
-    x2 = @x + WIDTH
-    y2 = @y + HEIGHT
+    x2 = @x + @width
+    y2 = @y + @height
 
     Line.new(x1, y1, x2, y1).draw
     Line.new(x2, y1, x2, y2).draw
@@ -35,18 +32,21 @@ class BlockUp < ClipObject
 end
 
 class ClipObject
-  def block_up(x, y)
-    BlockUp.new(self, x, y)
+  def block_up(*args)
+    BlockUp.new(self, *args)
   end
 end
 
 script do |c|
   x = 0
+  w = 40
   loop do
-    c.block_up(x, 400)
+    c.block_up(x, 400, w, w)
     x += 50
+    w -= 2
     c.wait 0.1
   end
 end
 
-run
+App.end_time = 3
+App.run
