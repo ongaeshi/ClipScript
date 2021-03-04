@@ -264,6 +264,9 @@
     <ClCompile Include="MrbRoundRect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbTriangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -698,6 +701,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbRoundRect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbTriangle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,7 +20,7 @@
 //#include "MrbTexture.hpp"
 //#include "MrbTextureRegion.hpp"
 //#include "MrbTexturedQuad.hpp"
-//#include "MrbTriangle.hpp"
+#include "MrbTriangle.hpp"
 #include "MrbVec2.hpp"
 #include "mruby.h"
 #include "mruby/array.h"
@@ -90,7 +90,7 @@ namespace siv3druby {
         //MrbTexture::Init(mrb);
         //MrbTextureRegion::Init(mrb);
         //MrbTexturedQuad::Init(mrb);
-        //MrbTriangle::Init(mrb);
+        MrbTriangle::Init(mrb);
         MrbVec2::Init(mrb);
         loadLibDir(mrb);
 
