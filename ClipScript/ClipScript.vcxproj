@@ -114,6 +114,7 @@
     <ClCompile Include="MrbCamera2D.cpp" />
     <ClCompile Include="MrbCircle.cpp" />
     <ClCompile Include="MrbColorF.cpp" />
+    <ClCompile Include="MrbDrawableText.cpp" />
     <ClCompile Include="MrbEmoji.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
     <ClCompile Include="MrbLine.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="MrbCamera2D.hpp" />
     <ClInclude Include="MrbCircle.hpp" />
     <ClInclude Include="MrbColorF.hpp" />
+    <ClInclude Include="MrbDrawableText.hpp" />
     <ClInclude Include="MrbEmoji.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
     <ClInclude Include="MrbLine.hpp" />
