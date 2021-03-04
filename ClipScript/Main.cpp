@@ -15,7 +15,7 @@
 #include "MrbPoint.hpp"
 #include "MrbPolygon.hpp"
 #include "MrbQuad.hpp"
-//#include "MrbRect.hpp"
+#include "MrbRect.hpp"
 //#include "MrbRoundRect.hpp"
 //#include "MrbTexture.hpp"
 //#include "MrbTextureRegion.hpp"
@@ -85,7 +85,7 @@ namespace siv3druby {
         MrbPoint::Init(mrb);
         MrbPolygon::Init(mrb);
         MrbQuad::Init(mrb);
-        //MrbRect::Init(mrb);
+        MrbRect::Init(mrb);
         //MrbRoundRect::Init(mrb);
         //MrbTexture::Init(mrb);
         //MrbTextureRegion::Init(mrb);
