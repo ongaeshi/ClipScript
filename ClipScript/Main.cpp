@@ -7,7 +7,7 @@
 #include "MrbColorF.hpp"
 #include "MrbDrawableText.hpp"
 #include "MrbEmoji.hpp"
-//#include "MrbFont.hpp"
+#include "MrbFont.hpp"
 #include "MrbHSV.hpp"
 #include "MrbLine.hpp"
 //#include "MrbLineString.hpp"
@@ -77,7 +77,7 @@ namespace siv3druby {
         MrbColorF::Init(mrb);
         MrbDrawableText::Init(mrb);
         MrbEmoji::Init(mrb);
-        //MrbFont::Init(mrb);
+        MrbFont::Init(mrb);
         MrbHSV::Init(mrb);
         MrbLine::Init(mrb);
         //MrbLineString::Init(mrb);

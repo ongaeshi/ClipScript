@@ -116,6 +116,7 @@
     <ClCompile Include="MrbColorF.cpp" />
     <ClCompile Include="MrbDrawableText.cpp" />
     <ClCompile Include="MrbEmoji.cpp" />
+    <ClCompile Include="MrbFont.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
     <ClCompile Include="MrbLine.cpp" />
     <ClCompile Include="MrbMisc.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="MrbColorF.hpp" />
     <ClInclude Include="MrbDrawableText.hpp" />
     <ClInclude Include="MrbEmoji.hpp" />
+    <ClInclude Include="MrbFont.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
     <ClInclude Include="MrbLine.hpp" />
     <ClInclude Include="MrbMisc.hpp" />

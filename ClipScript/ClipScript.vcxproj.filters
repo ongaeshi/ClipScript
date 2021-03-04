@@ -246,6 +246,9 @@
     <ClCompile Include="MrbDrawableText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -662,6 +665,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbDrawableText.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbFont.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
