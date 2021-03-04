@@ -125,6 +125,7 @@
     <ClCompile Include="MrbPolygon.cpp" />
     <ClCompile Include="MrbQuad.cpp" />
     <ClCompile Include="MrbRect.cpp" />
+    <ClCompile Include="MrbRoundRect.cpp" />
     <ClCompile Include="MrbVec2.cpp" />
     <ClCompile Include="mruby\src\array.c" />
     <ClCompile Include="mruby\src\backtrace.c" />
@@ -307,6 +308,7 @@
     <ClInclude Include="MrbPolygon.hpp" />
     <ClInclude Include="MrbQuad.hpp" />
     <ClInclude Include="MrbRect.hpp" />
+    <ClInclude Include="MrbRoundRect.hpp" />
     <ClInclude Include="MrbVec2.hpp" />
     <ClInclude Include="mruby\include\error.h" />
     <ClInclude Include="mruby\include\mrbconf.h" />
