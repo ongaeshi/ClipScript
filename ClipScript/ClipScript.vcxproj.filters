@@ -252,6 +252,9 @@
     <ClCompile Include="MrbLineString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbPolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -674,6 +677,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbLineString.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbPolygon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
