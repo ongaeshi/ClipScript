@@ -240,6 +240,9 @@
     <ClCompile Include="MrbCircle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbCamera2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -650,6 +653,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbCircle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbCamera2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
