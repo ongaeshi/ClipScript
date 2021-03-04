@@ -4,7 +4,7 @@
 #include "Main.hpp"
 //#include "MrbCamera2D.hpp"
 #include "MrbCircle.hpp"
-//#include "MrbColorF.hpp"
+#include "MrbColorF.hpp"
 //#include "MrbDrawableText.hpp"
 #include "MrbEmoji.hpp"
 //#include "MrbFont.hpp"
@@ -74,7 +74,7 @@ namespace siv3druby {
         //loadBuiltin(mrb);
         //MrbCamera2D::Init(mrb);
         MrbCircle::Init(mrb);
-        //MrbColorF::Init(mrb);
+        MrbColorF::Init(mrb);
         //MrbDrawableText::Init(mrb);
         MrbEmoji::Init(mrb);
         //MrbFont::Init(mrb);
