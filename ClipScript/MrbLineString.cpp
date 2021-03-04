@@ -73,10 +73,18 @@ mrb_value MrbLineString::draw_catmull_rom(mrb_state *mrb, mrb_value self)
     switch (argc)
     {
         case 4:
-            Self(self).drawCatmullRom(thickness, Util::ToColor(mrb, color), is_closed, interpolation);
+            if (is_closed) {
+                Self(self).drawCatmullRomClosed(thickness, Util::ToColor(mrb, color), interpolation);
+            } else {
+                Self(self).drawCatmullRom(thickness, Util::ToColor(mrb, color), interpolation);
+            }
             break;
         case 3:
-            Self(self).drawCatmullRom(thickness, Util::ToColor(mrb, color), is_closed);
+            if (is_closed) {
+                Self(self).drawCatmullRomClosed(thickness, Util::ToColor(mrb, color));
+            } else {
+                Self(self).drawCatmullRom(thickness, Util::ToColor(mrb, color));
+            }
             break;
         case 2:
             Self(self).drawCatmullRom(thickness, Util::ToColor(mrb, color));
