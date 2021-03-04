@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MrbTextureObject.hpp"
+#include "MrbObject.hpp"
 
 //----------------------------------------------------------
 namespace siv3druby {
