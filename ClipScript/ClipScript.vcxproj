@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MrbCircle.cpp" />
     <ClCompile Include="MrbColorF.cpp" />
     <ClCompile Include="MrbEmoji.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
@@ -284,6 +285,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.hpp" />
+    <ClInclude Include="MrbCircle.hpp" />
     <ClInclude Include="MrbColorF.hpp" />
     <ClInclude Include="MrbEmoji.hpp" />
     <ClInclude Include="MrbHSV.hpp" />

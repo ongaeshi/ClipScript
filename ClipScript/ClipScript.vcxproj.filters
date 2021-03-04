@@ -237,6 +237,9 @@
     <ClCompile Include="MrbEmoji.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbCircle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -645,6 +648,9 @@
     </ClInclude>
     <ClInclude Include="MrbEmoji.hpp">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbCircle.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
