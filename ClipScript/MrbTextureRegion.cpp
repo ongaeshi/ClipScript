@@ -1,5 +1,6 @@
 #include "MrbTextureRegion.hpp"
 
+#include "MrbTexturedQuad.hpp"
 #include "Util.hpp"
 
 //----------------------------------------------------------
@@ -15,8 +16,8 @@ void MrbTextureRegion::Init(mrb_state* mrb)
     mrb_define_method(mrb, Cc(), "draw_at", draw_at, MRB_ARGS_OPT(3));
     mrb_define_method(mrb, Cc(), "flip", flip, MRB_ARGS_NONE());
     mrb_define_method(mrb, Cc(), "mirror", mirror, MRB_ARGS_NONE());
-    //mrb_define_method(mrb, Cc(), "rotate", rotate, MRB_ARGS_REQ(1));
-    //mrb_define_method(mrb, Cc(), "rotate_at", rotate_at, MRB_ARGS_REQ(3));
+    mrb_define_method(mrb, Cc(), "rotate", rotate, MRB_ARGS_REQ(1));
+    mrb_define_method(mrb, Cc(), "rotate_at", rotate_at, MRB_ARGS_REQ(3));
     mrb_define_method(mrb, Cc(), "scale", scale, MRB_ARGS_ARG(1, 1));
     mrb_define_method(mrb, Cc(), "resize", resize, MRB_ARGS_REQ(2));
 }
@@ -85,31 +86,29 @@ mrb_value MrbTextureRegion::mirror(mrb_state *mrb, mrb_value self)
         );
 }
 
-// TODO: MrbTexturedQuad
+//----------------------------------------------------------
+mrb_value MrbTextureRegion::rotate(mrb_state *mrb, mrb_value self)
+{
+    mrb_float angle;
+    mrb_get_args(mrb, "f", &angle);
 
-////----------------------------------------------------------
-//mrb_value MrbTextureRegion::rotate(mrb_state *mrb, mrb_value self)
-//{
-//    mrb_float angle;
-//    mrb_get_args(mrb, "f", &angle);
-//
-//    return MrbTexturedQuad::ToMrb(
-//        mrb,
-//        new TexturedQuad(Self(self).rotated(angle))
-//        );
-//}
-//
-////----------------------------------------------------------
-//mrb_value MrbTextureRegion::rotate_at(mrb_state *mrb, mrb_value self)
-//{
-//    mrb_float x, y, angle;
-//    mrb_get_args(mrb, "fff", &x, &y, &angle);
-//
-//    return MrbTexturedQuad::ToMrb(
-//        mrb,
-//        new TexturedQuad(Self(self).rotatedAt(x, y, angle))
-//        );
-//}
+    return MrbTexturedQuad::ToMrb(
+        mrb,
+        new TexturedQuad(Self(self).rotated(angle))
+        );
+}
+
+//----------------------------------------------------------
+mrb_value MrbTextureRegion::rotate_at(mrb_state *mrb, mrb_value self)
+{
+    mrb_float x, y, angle;
+    mrb_get_args(mrb, "fff", &x, &y, &angle);
+
+    return MrbTexturedQuad::ToMrb(
+        mrb,
+        new TexturedQuad(Self(self).rotatedAt(x, y, angle))
+        );
+}
 
 //----------------------------------------------------------
 mrb_value MrbTextureRegion::resize(mrb_state *mrb, mrb_value self)

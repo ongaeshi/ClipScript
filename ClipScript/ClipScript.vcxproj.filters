@@ -270,6 +270,9 @@
     <ClCompile Include="MrbTextureRegion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbTexturedQuad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -710,6 +713,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbTextureRegion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbTexturedQuad.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
