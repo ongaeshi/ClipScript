@@ -119,6 +119,7 @@
     <ClCompile Include="MrbFont.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
     <ClCompile Include="MrbLine.cpp" />
+    <ClCompile Include="MrbLineString.cpp" />
     <ClCompile Include="MrbMisc.cpp" />
     <ClCompile Include="MrbPoint.cpp" />
     <ClCompile Include="MrbVec2.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="MrbFont.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
     <ClInclude Include="MrbLine.hpp" />
+    <ClInclude Include="MrbLineString.hpp" />
     <ClInclude Include="MrbMisc.hpp" />
     <ClInclude Include="MrbObject.hpp" />
     <ClInclude Include="MrbPoint.hpp" />
