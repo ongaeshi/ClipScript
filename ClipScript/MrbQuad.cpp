@@ -1,9 +1,8 @@
 #include "MrbQuad.hpp"
 
-// TODO: Support MrbTexture
-//#include "MrbTexture.hpp"
-//#include "MrbTextureRegion.hpp"
-//#include "MrbTexturedQuad.hpp"
+#include "MrbTexture.hpp"
+#include "MrbTextureRegion.hpp"
+#include "MrbTexturedQuad.hpp"
 #include "MrbVec2.hpp"
 #include "Util.hpp"
 
@@ -31,27 +30,27 @@ mrb_value MrbQuad::initialize(mrb_state *mrb, mrb_value self)
     return self;
 }
 
-////----------------------------------------------------------
-//mrb_value MrbQuad::aref(mrb_state *mrb, mrb_value self)
-//{
-//    mrb_value texture;
-//    mrb_get_args(mrb, "o", &texture);
-//
-//    TexturedQuad texturedQuad =
-//        MrbTexture::IsInstance(mrb, texture) ?
-//        Self(self)(*MrbTexture::ToCpp(mrb, texture)) :
-//        Self(self)(*MrbTextureRegion::ToCpp(mrb, texture));
-//
-//    return MrbTexturedQuad::ToMrb(
-//        mrb,
-//        new TexturedQuad(
-//            texturedQuad.texture,
-//            texturedQuad.uvRect,
-//            texturedQuad.quad,
-//            texturedQuad.center
-//            )
-//        );
-//}
+//----------------------------------------------------------
+mrb_value MrbQuad::aref(mrb_state *mrb, mrb_value self)
+{
+    mrb_value texture;
+    mrb_get_args(mrb, "o", &texture);
+
+    TexturedQuad texturedQuad =
+        MrbTexture::IsInstance(mrb, texture) ?
+        Self(self)(*MrbTexture::ToCpp(mrb, texture)) :
+        Self(self)(*MrbTextureRegion::ToCpp(mrb, texture));
+
+    return MrbTexturedQuad::ToMrb(
+        mrb,
+        new TexturedQuad(
+            texturedQuad.texture,
+            texturedQuad.uvRect,
+            texturedQuad.quad,
+            texturedQuad.center
+            )
+        );
+}
 
 //----------------------------------------------------------
 mrb_value MrbQuad::draw(mrb_state *mrb, mrb_value self)
