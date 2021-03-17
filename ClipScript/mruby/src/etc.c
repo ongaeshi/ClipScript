@@ -8,6 +8,7 @@
 #include <mruby/string.h>
 #include <mruby/data.h>
 #include <mruby/class.h>
+#include <mruby/numeric.h>
 
 MRB_API struct RData*
 mrb_data_object_alloc(mrb_state *mrb, struct RClass *klass, void *ptr, const mrb_data_type *type)
@@ -69,21 +70,11 @@ mrb_obj_to_sym(mrb_state *mrb, mrb_value name)
   return 0;  /* not reached */
 }
 
-MRB_API mrb_int
-#ifdef MRB_WITHOUT_FLOAT
-mrb_fixnum_id(mrb_int f)
-#else
-mrb_float_id(mrb_float f)
-#endif
+static mrb_int
+make_num_id(const char *p, size_t len)
 {
-  const char *p = (const char*)&f;
-  int len = sizeof(f);
   uint32_t id = 0;
 
-#ifndef MRB_WITHOUT_FLOAT
-  /* normalize -0.0 to 0.0 */
-  if (f == 0) f = 0.0;
-#endif
   while (len--) {
     id = id*65599 + *p;
     p++;
@@ -92,6 +83,22 @@ mrb_float_id(mrb_float f)
 
   return (mrb_int)id;
 }
+
+MRB_API mrb_int
+mrb_int_id(mrb_int n)
+{
+  return make_num_id((const char*)&n, sizeof(n));
+}
+
+#ifndef MRB_NO_FLOAT
+MRB_API mrb_int
+mrb_float_id(mrb_float f)
+{
+  /* normalize -0.0 to 0.0 */
+  if (f == 0) f = 0.0;
+  return make_num_id((const char*)&f, sizeof(f));
+}
+#endif
 
 MRB_API mrb_int
 mrb_obj_id(mrb_value obj)
@@ -107,17 +114,16 @@ mrb_obj_id(mrb_value obj)
     return MakeID(0); /* not define */
   case MRB_TT_FALSE:
     if (mrb_nil_p(obj))
-      return MakeID(1);
-    return MakeID(0);
+      return MakeID(4);
+    else
+      return MakeID(0);
   case MRB_TT_TRUE:
-    return MakeID(1);
+    return MakeID(2);
   case MRB_TT_SYMBOL:
     return MakeID(mrb_symbol(obj));
-  case MRB_TT_FIXNUM:
-#ifdef MRB_WITHOUT_FLOAT
-    return MakeID(mrb_fixnum_id(mrb_fixnum(obj)));
-#else
-    return MakeID2(mrb_float_id((mrb_float)mrb_fixnum(obj)), MRB_TT_FLOAT);
+  case MRB_TT_INTEGER:
+    return MakeID(mrb_int_id(mrb_integer(obj)));
+#ifndef MRB_NO_FLOAT
   case MRB_TT_FLOAT:
     return MakeID(mrb_float_id(mrb_float(obj)));
 #endif
@@ -132,7 +138,6 @@ mrb_obj_id(mrb_value obj)
   case MRB_TT_HASH:
   case MRB_TT_RANGE:
   case MRB_TT_EXCEPTION:
-  case MRB_TT_FILE:
   case MRB_TT_DATA:
   case MRB_TT_ISTRUCT:
   default:
@@ -140,41 +145,53 @@ mrb_obj_id(mrb_value obj)
   }
 }
 
+#if defined(MRB_NAN_BOXING) && defined(MRB_64BIT)
+#define mrb_xxx_boxing_cptr_value mrb_nan_boxing_cptr_value
+#endif
+
 #ifdef MRB_WORD_BOXING
-#ifndef MRB_WITHOUT_FLOAT
+#define mrb_xxx_boxing_cptr_value mrb_word_boxing_cptr_value
+
+#ifndef MRB_NO_FLOAT
 MRB_API mrb_value
 mrb_word_boxing_float_value(mrb_state *mrb, mrb_float f)
 {
-  mrb_value v;
+  union mrb_value_ v;
 
-  v.value.p = mrb_obj_alloc(mrb, MRB_TT_FLOAT, mrb->float_class);
-  v.value.fp->f = f;
-  MRB_SET_FROZEN_FLAG(v.value.bp);
-  return v;
+  v.p = mrb_obj_alloc(mrb, MRB_TT_FLOAT, mrb->float_class);
+  v.fp->f = f;
+  MRB_SET_FROZEN_FLAG(v.bp);
+  return v.value;
 }
+#endif  /* MRB_NO_FLOAT */
 
 MRB_API mrb_value
-mrb_word_boxing_float_pool(mrb_state *mrb, mrb_float f)
+mrb_word_boxing_int_value(mrb_state *mrb, mrb_int n)
 {
-  struct RFloat *nf = (struct RFloat *)mrb_malloc(mrb, sizeof(struct RFloat));
-  nf->tt = MRB_TT_FLOAT;
-  nf->c = mrb->float_class;
-  nf->f = f;
-  MRB_SET_FROZEN_FLAG(nf);
-  return mrb_obj_value(nf);
-}
-#endif  /* MRB_WITHOUT_FLOAT */
+  if (FIXABLE(n)) return mrb_fixnum_value(n);
+  else {
+    union mrb_value_ v;
 
-MRB_API mrb_value
-mrb_word_boxing_cptr_value(mrb_state *mrb, void *p)
-{
-  mrb_value v;
-
-  v.value.p = mrb_obj_alloc(mrb, MRB_TT_CPTR, mrb->object_class);
-  v.value.vp->p = p;
-  return v;
+    v.p = mrb_obj_alloc(mrb, MRB_TT_INTEGER, mrb->integer_class);
+    v.ip->i = n;
+    MRB_SET_FROZEN_FLAG(v.ip);
+    return v.value;
+  }
 }
 #endif  /* MRB_WORD_BOXING */
+
+#if defined(MRB_WORD_BOXING) || (defined(MRB_NAN_BOXING) && defined(MRB_64BIT))
+MRB_API mrb_value
+mrb_xxx_boxing_cptr_value(mrb_state *mrb, void *p)
+{
+  mrb_value v;
+  struct RCptr *cptr = (struct RCptr*)mrb_obj_alloc(mrb, MRB_TT_CPTR, mrb->object_class);
+
+  SET_OBJ_VALUE(v, cptr);
+  cptr->p = p;
+  return v;
+}
+#endif
 
 #if defined _MSC_VER && _MSC_VER < 1900
 

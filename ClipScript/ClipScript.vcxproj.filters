@@ -117,9 +117,6 @@
     <ClCompile Include="mruby\src\compar.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mruby\src\crc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mruby\src\debug.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -274,6 +271,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MrbTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_require_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_require_require.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

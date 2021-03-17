@@ -136,7 +136,6 @@
     <ClCompile Include="mruby\src\class.c" />
     <ClCompile Include="mruby\src\codedump.c" />
     <ClCompile Include="mruby\src\compar.c" />
-    <ClCompile Include="mruby\src\crc.c" />
     <ClCompile Include="mruby\src\debug.c" />
     <ClCompile Include="mruby\src\dump.c" />
     <ClCompile Include="mruby\src\enum.c" />
@@ -151,6 +150,8 @@
     <ClCompile Include="mruby\src\gem_init.c" />
     <ClCompile Include="mruby\src\gem_print_init.c" />
     <ClCompile Include="mruby\src\gem_print_print.c" />
+    <ClCompile Include="mruby\src\gem_require_init.c" />
+    <ClCompile Include="mruby\src\gem_require_require.c" />
     <ClCompile Include="mruby\src\hash.c" />
     <ClCompile Include="mruby\src\init.c" />
     <ClCompile Include="mruby\src\kernel.c" />
