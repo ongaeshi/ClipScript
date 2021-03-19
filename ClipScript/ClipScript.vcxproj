@@ -147,8 +147,11 @@
     <ClCompile Include="mruby\src\gem_array_ext_init.c" />
     <ClCompile Include="mruby\src\gem_class_ext_class.c" />
     <ClCompile Include="mruby\src\gem_class_ext_init.c" />
+    <ClCompile Include="mruby\src\gem_compar_ext_init.c" />
     <ClCompile Include="mruby\src\gem_compiler_codegen.c" />
     <ClCompile Include="mruby\src\gem_compiler_y.tab.c" />
+    <ClCompile Include="mruby\src\gem_complex_complex.c" />
+    <ClCompile Include="mruby\src\gem_complex_init.c" />
     <ClCompile Include="mruby\src\gem_enumerator_init.c" />
     <ClCompile Include="mruby\src\gem_enum_ext_init.c" />
     <ClCompile Include="mruby\src\gem_enum_lazy_init.c" />

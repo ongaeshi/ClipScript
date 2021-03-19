@@ -1280,7 +1280,7 @@ pack_unpack(mrb_state *mrb, mrb_value str, int single)
   unsigned int flags;
   int dir, size, type;
   int srcidx, srclen;
-  const unsigned char *sptr;
+  const unsigned char *sptr = NULL;
 
   prepare_tmpl(mrb, &tmpl);
 

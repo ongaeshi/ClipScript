@@ -411,6 +411,15 @@
     <ClCompile Include="mruby\src\gem_metaprog_init.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mruby\src\gem_compar_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_complex_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_complex_complex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
