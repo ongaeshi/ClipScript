@@ -1,3 +1,5 @@
+$font = Font.new(50)
+
 class TextScreen < ClipObject
   def initialize(parent)
     super(parent)
@@ -14,8 +16,9 @@ class TextScreen < ClipObject
   # end
 
   def draw
-    clear
-    puts @text
+    # clear
+    # puts @text
+    $font[@text].draw(0, 0)
   end
 end
 
@@ -25,19 +28,19 @@ class ClipObject
   end
 end
 
-script do |ctx|
+script do |c|
   t = c.text_screen
 
   1.upto(9) do |x|
     1.upto(9) do |y|
-      c.mul(t, 50*x, 50*y, x, y)
-      wait 0.5
+      t.append "#{x} × #{y} = #{x*y}\n"
+      c.wait 0.5
     end
-    c.enter(t)
+    # c.enter(t)
   end
 
   c.wait 1
 end
 
-App.end_time = 60
+App.end_time = 3
 App.run

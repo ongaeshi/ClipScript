@@ -279,6 +279,138 @@
     <ClCompile Include="mruby\src\gem_require_require.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mruby\src\gem_math_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_math_math.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_enumerator_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_eval_eval.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_eval_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_hash_ext_hash-ext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_hash_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_array_ext_array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_array_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_class_ext_class.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_class_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_enum_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_enum_lazy_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_metaprog_metaprog.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_method_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_method_method.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_numeric_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_numeric_ext_numeric_ext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_object_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_object_ext_object.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_objectspace_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_objectspace_mruby_objectspace.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_pack_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_pack_pack.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_proc_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_proc_ext_proc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_random_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_random_random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_range_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_range_ext_range.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_rational_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_rational_rational.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_sprintf_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_sprintf_sprintf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_string_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_string_ext_string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_struct_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_struct_struct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_symbol_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_symbol_ext_symbol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_toplevel_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_kernel_ext_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_kernel_ext_kernel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mruby\src\gem_metaprog_init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">

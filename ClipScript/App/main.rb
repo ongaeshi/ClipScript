@@ -1,13 +1,13 @@
 Graphics.set_background(Palette::Steelblue)
 
 script do |c|
-  l1 = c.line(100, 100, 200, 100)
+  c.line(100, 100, 200, 100) => l1
   c.wait 0.3
-  l2 = c.line(200, 100, 200, 200)
+  c.line(200, 100, 200, 200) => l2
   c.wait 0.3
-  l3 = c.line(200, 200, 100, 200)
+  c.line(200, 200, 100, 200) => l3
   c.wait 0.3
-  l4 = c.line(100, 200, 100, 100)
+  c.line(100, 200, 100, 100) => l4
 
   c.until_time 1.5
 
