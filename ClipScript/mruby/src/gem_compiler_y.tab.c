@@ -44,8 +44,6 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#define _CRT_SECURE_NO_WARNINGS
-
 /* Identify Bison output.  */
 #define YYBISON 1
 

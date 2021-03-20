@@ -3,7 +3,6 @@
 **
 ** See Copyright Notice in mruby.h
 */
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <mruby.h>
 #include <limits.h>
