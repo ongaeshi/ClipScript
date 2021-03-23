@@ -49,22 +49,6 @@ namespace siv3druby {
         mrb_define_global_const(mrb, "ARGV", ARGV);
     }
 
-    //void loadBuiltin(mrb_state* mrb)
-    //{
-    //    mrb_load_irep(mrb, mrb_siv3druby_builtin);
-    //}
-
-    void loadLibDir(mrb_state* mrb)
-    {
-        for (const auto& file : std::filesystem::directory_iterator("lib")) {
-            TextReader reader(Unicode::FromUTF8(file.path().string()));
-            auto s = reader.readAll();
-
-            mrb_value ret = mrb_load_string(mrb, s.toUTF8().c_str());
-            // TODO: error
-        }
-    }
-
     void setLoadPath(mrb_state* mrb)
     {
         mrb_value load_path = mrb_gv_get(mrb, mrb_intern_cstr(mrb, "$:"));
@@ -78,7 +62,7 @@ namespace siv3druby {
         mrb_state* mrb = mrb_open();
 
         setArgv(mrb);
-        //loadBuiltin(mrb);
+        setLoadPath(mrb);
         MrbCamera2D::Init(mrb);
         MrbCircle::Init(mrb);
         MrbColorF::Init(mrb);
@@ -99,8 +83,6 @@ namespace siv3druby {
         MrbTexturedQuad::Init(mrb);
         MrbTriangle::Init(mrb);
         MrbVec2::Init(mrb);
-        loadLibDir(mrb);
-        setLoadPath(mrb);
 
         String s;
 

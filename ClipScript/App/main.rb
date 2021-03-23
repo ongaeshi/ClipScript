@@ -1,3 +1,5 @@
+require 'clip'
+
 Graphics.set_background(Palette::Steelblue)
 
 script do |c|
