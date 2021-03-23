@@ -1,3 +1,5 @@
+require 'clip'
+
 $font = Font.new(50)
 
 class TextScreen < ClipObject

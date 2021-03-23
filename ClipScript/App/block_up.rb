@@ -1,3 +1,5 @@
+require 'clip'
+
 class BlockUp < ClipObject
   def initialize(parent, x, y, width = 40, height = 40)
     super(parent)
