@@ -27,6 +27,7 @@
 #include "mruby/compile.h"
 #include "mruby/string.h"
 #include "mruby/dump.h"
+#include "mruby/variable.h"
 #include <thread>
 #include <Windows.h>
 
@@ -64,6 +65,12 @@ namespace siv3druby {
         }
     }
 
+    void setLoadPath(mrb_state* mrb)
+    {
+        mrb_value load_path = mrb_gv_get(mrb, mrb_intern_cstr(mrb, "$:"));
+        mrb_ary_push(mrb, load_path, mrb_str_new_cstr(mrb, "./lib"));
+    }
+
     void mainLoop()
     {
         Window::SetTitle(U"SketchWaltz 0.0.4 dev");
@@ -93,6 +100,7 @@ namespace siv3druby {
         MrbTriangle::Init(mrb);
         MrbVec2::Init(mrb);
         loadLibDir(mrb);
+        setLoadPath(mrb);
 
         String s;
 
