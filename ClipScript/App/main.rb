@@ -3,6 +3,18 @@ require 'clip'
 Graphics.set_background(Palette::Steelblue)
 
 script do |c|
+  rad = 0.0
+
+  circle = c.circle(400, 200, 2)
+
+  loop do
+    circle.r += 5 * Math::sin(rad)
+    c.wait 0.1
+    rad += Math::PI * 0.1
+  end
+end
+
+script do |c|
   c.line(100, 100, 200, 100) => l1
   c.wait 0.3
   c.line(200, 100, 200, 200) => l2
