@@ -1,3 +1,5 @@
-require '00_builtin'
-require '10_clip_object'
-require '20_clip_manager'
+require '__builtin'
+require 'clip_object'
+require 'line_clip'
+require 'clip_manager'
+require 'clip_app'

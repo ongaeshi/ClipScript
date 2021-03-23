@@ -1,3 +1,5 @@
+require 'clip_object'
+
 class ClipManager
   attr_reader :root
   attr_accessor :end_time
@@ -54,21 +56,3 @@ class ClipManager
 end
 
 $clip_manager = ClipManager.new
-
-# Global functions
-
-def self.script(&block)
-  $clip_manager.script(&block)
-end
-
-class App
-  def self.end_time=(time)
-    $clip_manager.end_time = time
-  end
-
-  def self.run
-    $clip_manager.run
-  end
-end
-
-
