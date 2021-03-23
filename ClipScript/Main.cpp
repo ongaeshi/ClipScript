@@ -52,7 +52,8 @@ namespace siv3druby {
     void setLoadPath(mrb_state* mrb)
     {
         mrb_value load_path = mrb_gv_get(mrb, mrb_intern_cstr(mrb, "$:"));
-        mrb_ary_push(mrb, load_path, mrb_str_new_cstr(mrb, "./lib"));
+        auto path = FileSystem::CurrentDirectory() + U"/lib";
+        mrb_ary_push(mrb, load_path, mrb_str_new_cstr(mrb, path.toUTF8().c_str()));
     }
 
     void mainLoop()
