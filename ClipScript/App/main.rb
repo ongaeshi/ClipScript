@@ -4,15 +4,18 @@ Graphics.set_background(Palette::Steelblue)
 
 script do |c|
   rad = 0.0
+  h = 0
 
-  circle = c.circle(400, 200, 2)
+  circle = c.circle(400, 200, 10)
 
   loop do
     circle.x += 5 * Math::cos(rad)
     circle.y += 5 * Math::sin(rad)
     circle.r += 2 * Math::sin(rad)
+    circle.color = HSV.new(h, 0.8, 0.8, 1)
     c.wait 0.016
     rad += Math::PI * 0.05
+    h += 1
   end
 end
 
