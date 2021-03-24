@@ -2,7 +2,7 @@ require 'clip_object'
 
 module Clip
   class LineClip < ClipObject
-    attr_accessor :x0, :y0, :x1, :y1
+    attr_accessor :x0, :y0, :x1, :y1, :thickness, :color
 
     def initialize(parent, x0, y0, x1, y1, opt = {})
       super(parent)
@@ -10,17 +10,18 @@ module Clip
       @y0 = y0
       @x1 = x1
       @y1 = y1
-      @opt = opt
+      @thickness = opt[:thickness] || 1
+      @color = opt[:color] || Palette::White
     end
 
     def draw
-      Line.new(@x0, @y0, @x1, @y1).draw
+      Line.new(@x0, @y0, @x1, @y1).draw(@thickness, @color)
     end
   end
 
   class ClipObject
-    def line(x1, y1, x2, y2)
-      LineClip.new(self, x1, y1, x2, y2)
+    def line(*args)
+      LineClip.new(self, *args)
     end
   end
 end
