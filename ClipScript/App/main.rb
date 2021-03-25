@@ -1,10 +1,56 @@
 require 'clip'
 
-Graphics.set_background(Palette::Steelblue)
+# App.end_time = 10
 
 script do |c|
-  p to_color("red")
-  p to_color("#ffffff")
+  hue = 0
+  loop do
+    Graphics.set_background(HSV.new(hue, 0.5, 0.5))
+    hue += 1
+    c.wait 0.016
+  end
+end
+
+script do |c|
+  # p to_color("red")
+  # p to_color("#ffffff")
+
+  t = 0.2
+  
+  c.circle(100, 100, 45, color: "navy")
+  c.wait t
+  c.circle(200, 100, 45, color: "blue")
+  c.wait t
+  c.circle(300, 100, 45, color: "aqua")
+  c.wait t
+  c.circle(400, 100, 45, color: "teal")
+  c.wait t
+  c.circle(500, 100, 45, color: "olive")
+  c.wait t
+  c.circle(600, 100, 45, color: "green")
+  c.wait t
+  c.circle(700, 100, 45, color: "lime")
+  c.wait t
+  c.circle(100, 200, 45, color: "yellow")
+  c.wait t
+  c.circle(200, 200, 45, color: "orange")
+  c.wait t
+  c.circle(300, 200, 45, color: "red")
+  c.wait t
+  c.circle(400, 200, 45, color: "fuchsia")
+  c.wait t
+  c.circle(500, 200, 45, color: "purple")
+  c.wait t
+  c.circle(600, 200, 45, color: "maroon")
+  c.wait t
+  c.circle(700, 200, 45, color: "shilver")
+  c.wait t
+  c.circle(100, 300, 45, color: "gray")
+  c.wait t
+  c.circle(200, 300, 45, color: "block")
+  c.wait t
+  c.circle(300, 300, 45, color: "white")
+  c.wait t
 end
 
 # script do |c|

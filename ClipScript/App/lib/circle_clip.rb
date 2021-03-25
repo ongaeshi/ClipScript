@@ -2,14 +2,16 @@ require 'clip_object'
 
 module Clip
   class CircleClip < ClipObject
-    attr_accessor :x, :y, :r, :color
+    attr_accessor :x, :y, :r
+    attr_reader :color
+    def color=(c) ; @color = to_color(c) ; end
 
     def initialize(parent, x, y, r, opt = {})
       super(parent)
       @x = x
       @y = y
       @r = r
-      @color = opt[:color] || Palette::White
+      @color = to_color(opt[:color]) || Palette::White
     end
 
     def draw
