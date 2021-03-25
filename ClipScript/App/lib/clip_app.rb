@@ -6,6 +6,20 @@ module Clip
   end
   module_function :script
 
+  COLORS = {
+    "red" => "#FF4136" 
+  }
+
+  def to_color(src)
+    if src.is_a? String
+      hex = COLORS[src] || src
+      hex = hex[1..-1].to_i(16)
+      [(hex >> 16) & 0xff, (hex >> 8) & 0xff, hex & 0xff]
+    else
+      src
+    end
+  end
+
   class App
     def self.end_time=(time)
       $clip_manager.end_time = time
