@@ -2,6 +2,13 @@ require 'clip'
 
 # App.end_time = 10
 
+class CircleClip
+  def draw
+    Drawer.circle(@x, @y, @r, @color, @frame)
+    Drawer.circle(@x, @y, @r, "navy", 2)
+  end
+end
+
 script do |c|
   hue = 0
   loop do

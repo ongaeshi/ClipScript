@@ -4,8 +4,13 @@ module Drawer
   end
   module_function :background
 
-  def circle(x, y, r, color)
-    Circle.new(x, y, r).draw(to_color(color))    
+  def circle(x, y, r, color, frame = nil)
+    color = to_color(color)
+    if frame.nil?
+      Circle.new(x, y, r).draw(color)
+    else
+      Circle.new(x, y, r).draw_frame(frame, color)
+    end
   end
   module_function :circle
 
