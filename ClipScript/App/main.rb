@@ -5,7 +5,7 @@ require 'clip'
 script do |c|
   hue = 0
   loop do
-    Graphics.set_background(HSV.new(hue, 0.5, 0.5))
+    Drawer.background('gray')
     hue += 1
     c.wait 0.016
   end
