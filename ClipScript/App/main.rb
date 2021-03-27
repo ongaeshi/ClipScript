@@ -1,6 +1,6 @@
 require 'clip'
 
-# App.end_time = 10
+App.end_time = 6
 
 class CircleClip
   def draw
@@ -19,8 +19,14 @@ script do |c|
 end
 
 script do |c|
-  # p to_color("red")
-  # p to_color("#ffffff")
+  # p Drawer.to_color("red")
+  # p Drawer.to_color("#ffffff")
+  # p Drawer.to_color(2)
+  
+  0.upto(16) do |e|
+    c.circle(50, 50, 45, color: e)
+    c.wait 0.1
+  end
 
   t = 0.2
   

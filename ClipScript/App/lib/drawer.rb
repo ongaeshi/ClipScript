@@ -25,17 +25,39 @@ module Drawer
     "yellow" => "#FFDC00",
     "orange" => "#FF851B",
     "red" => "#FF4136",
+    "maroon" => "#85144B",
     "fuchsia" => "#F012BE",
     "purple" => "#B10DC9",
-    "maroon" => "#85144B",
-    "white" => "#FFFFFF",
-    "silver" => "#DDDDDD",
-    "gray" => "#AAAAAA",
     "black" => "#111111",
+    "gray" => "#AAAAAA",
+    "silver" => "#DDDDDD",
+    "white" => "#FFFFFF",
   }
 
+  COLOR_ARRAY = [
+    "navy",
+    "blue",
+    "aqua",
+    "teal",
+    "olive",
+    "green",
+    "lime",
+    "yellow",
+    "orange",
+    "red",
+    "maroon",
+    "fuchsia",
+    "purple",
+    "black",
+    "gray",
+    "silver",
+    "white",
+  ]
+
   def to_color(src)
-    if src.is_a?(String)
+    if src.is_a?(Integer)
+      to_color(COLOR_ARRAY[src])
+    elsif src.is_a?(String)
       hex = COLORS[src] || src
       hex = hex[1..-1].to_i(16)
       [(hex >> 16) & 0xff, (hex >> 8) & 0xff, hex & 0xff]
@@ -43,4 +65,5 @@ module Drawer
       src
     end
   end
+  module_function :to_color
 end
