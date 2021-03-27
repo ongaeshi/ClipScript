@@ -14,6 +14,16 @@ module Drawer
   end
   module_function :circle
 
+  def text(font, x, y, text, color)
+    font[text].draw(x, y, to_color(color))
+  end
+  module_function :text
+
+  def text_at(font, x, y, text, color)
+    font[text].draw_at(x, y, to_color(color))
+  end
+  module_function :text_at
+
   COLORS = {
     "navy" => "#001F3F",
     "blue" => "#0074D9",

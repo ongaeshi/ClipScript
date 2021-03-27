@@ -5,4 +5,5 @@ require 'clip_manager'
 require 'clip_app'
 require 'line_clip'
 require 'circle_clip'
+require 'text_clip'
 include Clip
