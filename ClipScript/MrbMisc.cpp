@@ -168,7 +168,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = true;
     }
 
-    font(U"{:3.2f}"_fmt(time)).draw(100, 500);
+    font(U"{:3.2f}"_fmt(time)).draw(100, 500, Palette::Black);
 
     mrb_value array = mrb_ary_new(mrb);
     mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
