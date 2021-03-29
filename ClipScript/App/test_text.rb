@@ -1,5 +1,7 @@
 require 'clip'
 
+App.end_time = 5
+
 script do |c|
   Drawer.background("white")
 
@@ -34,10 +36,18 @@ script do |c|
   t.text += "？"
   c.wait 0.8
 
-  t = c.text(font, 230, 150, color: 3, text: "🐈")
-  t.text += "よ"
-  t.text += "り"
+  t2 = c.text(font, 230, 150, color: 3, text: "🐈")
+  t2.text += "よ"
+  t2.text += "り"
+  c.wait 1
 
+  font = Font.new(40)
+  t.font = t2.font = font
+  c.wait 1
+
+  font = Font.new(30)
+  t.font = t2.font = font
+  c.wait 1
 end
 
 App.run
