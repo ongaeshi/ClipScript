@@ -1,5 +1,9 @@
 require 'clip'
 
+App.end_time = 30
+
+W = 2
+
 script do |c|
   Drawer.background("white")
   windmill = Texture.new("example/windmill.png")
@@ -8,11 +12,27 @@ script do |c|
   w = c.texture(windmill, 0, 0)
 
   t.text = "Normal"
-  c.until_time 1
+  c.wait W
 
   t.text = "color = [128, 128, 0]"
+  reset(w)
   w.color = [128, 128, 0]
-  c.until_time 2
+  c.wait W
+
+  t.text = "flip = true"
+  reset(w)
+  w.flip = true
+  c.wait W
+
+  t.text = "mirror = true"
+  reset(w)
+  w.mirror = true
+  c.wait W
+end
+
+def reset(t)
+  t.color = [255, 255, 255]
+  t.flip = false
 end
 
 App.run
