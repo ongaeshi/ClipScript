@@ -6,4 +6,5 @@ require 'clip_app'
 require 'line_clip'
 require 'circle_clip'
 require 'text_clip'
+require 'texture_clip'
 include Clip
