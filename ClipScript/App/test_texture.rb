@@ -1,6 +1,6 @@
 require 'clip'
 
-App.end_time = 30
+App.end_time = 12
 
 W = 2
 
@@ -33,6 +33,11 @@ script do |c|
   reset(w)
   w.region = [300, 200, 100, 100]
   c.wait W
+
+  t.text = "scale(0.5, 0.3)"
+  reset(w)
+  w.scale(0.5, 0.3)
+  c.wait W
 end
 
 def reset(t)
@@ -40,6 +45,7 @@ def reset(t)
   t.flip = false
   t.mirror = false
   t.region = nil
+  t.scale(1, 1)
 end
 
 App.run
