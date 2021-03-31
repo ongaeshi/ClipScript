@@ -8,7 +8,7 @@ script do |c|
   Drawer.background("white")
   windmill = Texture.new("example/windmill.png")
   font = Font.new(30)
-  t = c.text(font, 0, 330)
+  t = c.text(font, 10, 330)
   w = c.texture(windmill, 0, 0)
 
   t.text = "Normal"
@@ -28,11 +28,18 @@ script do |c|
   reset(w)
   w.mirror = true
   c.wait W
+
+  t.text = "region = [300, 200, 100, 100]"
+  reset(w)
+  w.region = [300, 200, 100, 100]
+  c.wait W
 end
 
 def reset(t)
   t.color = [255, 255, 255]
   t.flip = false
+  t.mirror = false
+  t.region = nil
 end
 
 App.run
