@@ -24,6 +24,15 @@ module Drawer
   end
   module_function :text_at
 
+  def texture(texture, x, y, color = nil)
+    if color
+      texture.draw(x, y, to_color(color))
+    else
+      texture.draw(x, y)
+    end
+  end
+  module_function :texture
+
   COLORS = {
     "navy" => "#001F3F",
     "blue" => "#0074D9",
