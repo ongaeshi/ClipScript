@@ -3,7 +3,7 @@ require 'drawer'
 
 module Clip
   class TextureClip < ClipObject
-    attr_accessor :texture, :x, :y, :color, :flip, :mirror, :region, :scale_x, :scale_y
+    attr_accessor :texture, :x, :y, :color, :flip, :mirror, :region, :scale_x, :scale_y, :rotate
 
     def initialize(parent, texture, x, y, opt = {})
       super(parent)
@@ -15,15 +15,22 @@ module Clip
       @mirror = opt[:mirror] || false
       @region = opt[:region] || nil
       @scale_x, @scale_y = 1, 1
+      @rotate = opt[:rotate] || 0
     end
 
     def draw
-      texregion = @texture
-      texregion = texregion[*@region] if @region
-      texregion = texregion.flip if @flip
-      texregion = texregion.mirror if @mirror
-      texregion = texregion.scale(@scale_x, @scale_y)
-      Drawer.texture(texregion, @x, @y, @color)
+      t = @texture
+
+      # TextureRegion
+      t = t[*@region] if @region
+      t = t.flip if @flip
+      t = t.mirror if @mirror
+      t = t.scale(@scale_x, @scale_y)
+
+      # TextureQuad
+      t = t.rotate(@rotate * (Math::PI * 2 / 360)) if @rotate != 0
+
+      Drawer.texture(t, @x, @y, @color)
     end
 
     def scale(x, y)

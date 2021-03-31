@@ -1,6 +1,6 @@
 require 'clip'
 
-App.end_time = 12
+App.end_time = 14
 
 W = 2
 
@@ -8,8 +8,8 @@ script do |c|
   Drawer.background("white")
   windmill = Texture.new("example/windmill.png")
   font = Font.new(30)
-  t = c.text(font, 10, 330)
   w = c.texture(windmill, 0, 0)
+  t = c.text(font, 10, 330)
 
   t.text = "Normal"
   c.wait W
@@ -37,6 +37,11 @@ script do |c|
   t.text = "scale(0.5, 0.3)"
   reset(w)
   w.scale(0.5, 0.3)
+  c.wait W
+
+  t.text = "rotate(30)"
+  reset(w)
+  w.rotate = -30
   c.wait W
 end
 
