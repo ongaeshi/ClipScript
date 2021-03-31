@@ -3,18 +3,18 @@ require 'drawer'
 
 module Clip
   class TextureClip < ClipObject
-    attr_accessor :texture, :x, :y
+    attr_accessor :texture, :x, :y, :color
 
     def initialize(parent, texture, x, y, opt = {})
       super(parent)
       @texture = texture
       @x = x
       @y = y
-      # @color = opt[:color] || "black"
+      @color = opt[:color] || [255, 255, 255, 255]
     end
 
     def draw
-      Drawer.texture(@texture, @x, @y)
+      Drawer.texture(@texture, @x, @y, @color)
     end
   end
 
