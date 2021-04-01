@@ -18,7 +18,12 @@ module Clip
     end
 
     def run
-      delta_time = @start_time + 0.016 # TODO: get_delta_time
+      # Calculate first delta time
+      if @start_time > 0 || @is_stop
+        delta_time = @start_time
+      else
+        delta_time = 0.016 # TODO: get_delta_time
+      end
 
       # Turn off is_first_update flag
       root.update(0)
