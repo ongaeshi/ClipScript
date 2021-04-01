@@ -1,6 +1,7 @@
 require 'clip'
 
 # App.start_time = 12
+# App.is_stop = true
 App.end_time = 14
 
 W = 2

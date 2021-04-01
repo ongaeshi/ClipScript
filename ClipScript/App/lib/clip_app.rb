@@ -31,6 +31,10 @@ module Clip
       $clip_manager.start_time = time
     end
 
+    def self.is_stop=(flag)
+      $clip_manager.is_stop = flag
+    end
+
     def self.end_time=(time)
       $clip_manager.end_time = time
     end
