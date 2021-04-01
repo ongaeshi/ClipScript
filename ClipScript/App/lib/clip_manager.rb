@@ -20,6 +20,9 @@ module Clip
     def run
       delta_time = @start_time + 0.016 # TODO: get_delta_time
 
+      # Turn off is_first_update flag
+      root.update(0)
+      
       while System.update do
         @time += delta_time
 
