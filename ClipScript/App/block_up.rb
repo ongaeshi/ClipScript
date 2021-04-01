@@ -1,5 +1,8 @@
 require 'clip'
 
+# App.start_time = 1.8
+# App.is_stop = true
+
 class BlockUp < ClipObject
   def initialize(parent, x, y, width = 40, height = 40)
     super(parent)
