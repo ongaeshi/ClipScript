@@ -1,5 +1,6 @@
 require 'clip'
 
+# App.start_time = 12
 App.end_time = 14
 
 W = 2
@@ -41,7 +42,7 @@ script do |c|
 
   t.text = "rotate(30)"
   reset(w)
-  w.rotate = -30
+  w.rotate = 20
   c.wait W
 end
 

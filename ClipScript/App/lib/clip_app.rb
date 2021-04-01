@@ -27,6 +27,10 @@ module Clip
   }
 
   class App
+    def self.start_time=(time)
+      $clip_manager.start_time = time
+    end
+
     def self.end_time=(time)
       $clip_manager.end_time = time
     end

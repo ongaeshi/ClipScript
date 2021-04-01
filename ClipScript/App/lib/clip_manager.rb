@@ -3,11 +3,12 @@ require 'clip_object'
 module Clip
   class ClipManager
     attr_reader :root
-    attr_accessor :end_time
+    attr_accessor :start_time, :end_time
 
     def initialize
       @root = RootClip.new
       @time = 0.0
+      @start_time = 0.0
       @end_time = 4.0
       @is_stop = false
     end
@@ -17,7 +18,7 @@ module Clip
     end
 
     def run
-      delta_time = 0.016 # TODO: get_delta_time
+      delta_time = @start_time + 0.016 # TODO: get_delta_time
 
       while System.update do
         @time += delta_time
