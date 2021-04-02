@@ -43,7 +43,7 @@ script do |c|
 
   t.text = "rotate(30)"
   reset(w)
-  w.rotate = 20
+  w.rotate = 30
   c.wait W
 end
 

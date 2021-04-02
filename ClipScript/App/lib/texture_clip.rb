@@ -28,7 +28,7 @@ module Clip
       t = t.scale(@scale_x, @scale_y)
 
       # TextureQuad
-      t = t.rotate(@rotate * (Math::PI * 2 / 360)) if @rotate != 0
+      t = t.rotate(Math::radians(@rotate)) if @rotate != 0
 
       Drawer.texture(t, @x, @y, @color)
     end
