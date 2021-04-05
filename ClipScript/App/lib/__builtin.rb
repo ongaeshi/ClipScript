@@ -210,3 +210,5 @@ class Palette
   Slateblue = [ 106,90,205 ]
   Mediumslateblue = [ 123,104,238 ]
 end
+
+def min_delta_time = 1.0 / 60  # Assume 60fps

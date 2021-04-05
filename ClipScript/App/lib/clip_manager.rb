@@ -22,7 +22,7 @@ module Clip
       if @start_time > 0 || @is_stop
         delta_time = @start_time
       else
-        delta_time = 0.016 # TODO: get_delta_time
+        delta_time = min_delta_time
       end
 
       # Turn off is_first_update flag
@@ -47,7 +47,7 @@ module Clip
         @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
       
         unless @is_stop
-          delta_time = 0.016
+          delta_time = min_delta_time
         else
           if @time < prev_time
             root.children.each do |c|
