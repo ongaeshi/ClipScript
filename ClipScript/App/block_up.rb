@@ -18,7 +18,7 @@ class BlockUp < ClipObject
         @y -= @speed
         @speed += 0.3
         @speed *= -1 if @y <= 0
-        wait 0.016
+        wait_delta
       end
     end
   end

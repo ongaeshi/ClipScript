@@ -1,5 +1,6 @@
 require 'clip'
 
+# App.start_time = 4.5
 App.end_time = 8
 
 script do |c|
@@ -8,7 +9,7 @@ script do |c|
     # Drawer.background(HSV.new(hue, 0.6, 1.0))
     Drawer.background("gray")
     hue += 1
-    c.wait 0.016
+    c.wait_delta
   end
 end
 
@@ -61,7 +62,7 @@ script do |c|
 
   1.upto(17) do
     cir.thickness -= 1
-    c.wait 0.016
+    c.wait_delta
   end
 
   color = cir.frame_color

@@ -82,6 +82,8 @@ module Clip
       until_time(@target_time + sec)
     end
 
+    def wait_delta = wait(min_delta_time)
+
     def until_time(t)
       @target_time = t
       loop do
