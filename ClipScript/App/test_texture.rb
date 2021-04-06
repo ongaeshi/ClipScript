@@ -1,7 +1,8 @@
+# CLIP_MANAGER_START_TIME = 8
+# CLIP_MANAGER_IS_STOP = true
+
 require 'clip'
 
-# App.start_time = 13
-# App.is_stop = true
 App.end_time = 18
 
 W = 2

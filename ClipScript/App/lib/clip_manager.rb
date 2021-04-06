@@ -5,12 +5,12 @@ module Clip
     attr_reader :root
     attr_accessor :start_time, :end_time, :is_stop
 
-    def initialize
+    def initialize(start_time = nil, is_stop = nil)
       @root = RootClip.new
       @time = 0.0
-      @start_time = 0.0
+      @start_time = start_time || 0.0
       @end_time = 4.0
-      @is_stop = false
+      @is_stop = is_stop || false
     end
 
     def script(&block)
@@ -65,5 +65,17 @@ module Clip
     end  
   end
 
-  $clip_manager = ClipManager.new
+  if Object.const_defined?("CLIP_MANAGER_START_TIME")
+    if Object.const_defined?("CLIP_MANAGER_IS_STOP")
+      $clip_manager = ClipManager.new(CLIP_MANAGER_START_TIME, CLIP_MANAGER_IS_STOP)
+    else
+      $clip_manager = ClipManager.new(CLIP_MANAGER_START_TIME)
+    end
+  else
+    if Object.const_defined?("CLIP_MANAGER_IS_STOP")
+      $clip_manager = ClipManager.new(nil, CLIP_MANAGER_IS_STOP)
+    else
+      $clip_manager = ClipManager.new
+    end
+  end
 end
