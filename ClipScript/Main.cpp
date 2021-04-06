@@ -118,6 +118,9 @@ namespace siv3druby {
 
             mrb_value t = mrb_funcall(mrb, clipManager, "time", 0);
             mrb_float time = mrb_float(t);
+            
+            mrb_value i = mrb_funcall(mrb, clipManager, "is_stop", 0);
+            mrb_bool is_stop = mrb_bool(i);
         }
 
         mrb_close(mrb);
