@@ -94,6 +94,14 @@ namespace siv3druby {
                 );
         }
 
+        if (fSiv3DRubyState.restartIsStop) {
+            mrb_const_set(
+                mrb,
+                mrb_obj_value(mrb->kernel_module),
+                mrb_intern_str(mrb, mrb_str_new_cstr(mrb, "CLIP_MANAGER_IS_STOP")),
+                mrb_bool_value(fSiv3DRubyState.restartIsStop)
+            );
+        }
 
         String s;
 
