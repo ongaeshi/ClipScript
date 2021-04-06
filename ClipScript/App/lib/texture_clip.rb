@@ -14,7 +14,8 @@ module Clip
       @flip = opt[:flip] || false
       @mirror = opt[:mirror] || false
       @region = opt[:region] || nil
-      @scale_x, @scale_y = 1, 1
+      @scale_x = opt[:scale_x] || 1
+      @scale_y = opt[:scale_y] || 1
       @rotate = opt[:rotate] || 0
     end
 
