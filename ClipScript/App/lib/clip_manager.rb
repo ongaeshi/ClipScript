@@ -2,7 +2,7 @@ require 'clip_object'
 
 module Clip
   class ClipManager
-    attr_reader :root
+    attr_reader :root, :time
     attr_accessor :start_time, :end_time, :is_stop
 
     def initialize(start_time = nil, is_stop = nil)

@@ -113,6 +113,13 @@ namespace siv3druby {
             }
         }
 
+        if (fSiv3DRubyState.isReload) {
+            mrb_value clipManager = mrb_gv_get(mrb, mrb_intern_cstr(mrb, "$clip_manager"));
+
+            mrb_value t = mrb_funcall(mrb, clipManager, "time", 0);
+            mrb_float time = mrb_float(t);
+        }
+
         mrb_close(mrb);
     }
 
