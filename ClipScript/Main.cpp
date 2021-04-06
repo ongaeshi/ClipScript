@@ -85,6 +85,16 @@ namespace siv3druby {
         MrbTriangle::Init(mrb);
         MrbVec2::Init(mrb);
 
+        if (fSiv3DRubyState.restartTime != 0.0f) {
+            mrb_const_set(
+                mrb,
+                mrb_obj_value(mrb->kernel_module),
+                mrb_intern_str(mrb, mrb_str_new_cstr(mrb, "CLIP_MANAGER_START_TIME")),
+                mrb_float_value(mrb, fSiv3DRubyState.restartTime)
+                );
+        }
+
+
         String s;
 
         if (fSiv3DRubyState.evalString != U"") {
@@ -117,10 +127,10 @@ namespace siv3druby {
             mrb_value clipManager = mrb_gv_get(mrb, mrb_intern_cstr(mrb, "$clip_manager"));
 
             mrb_value t = mrb_funcall(mrb, clipManager, "time", 0);
-            mrb_float time = mrb_float(t);
+            fSiv3DRubyState.restartTime = mrb_float(t);
             
             mrb_value i = mrb_funcall(mrb, clipManager, "is_stop", 0);
-            mrb_bool is_stop = mrb_bool(i);
+            fSiv3DRubyState.restartIsStop = mrb_bool(i);
         }
 
         mrb_close(mrb);
@@ -225,3 +235,4 @@ void Main()
         mainLoop();
     } while (fSiv3DRubyState.isReload);
 }
+ 

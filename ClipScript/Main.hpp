@@ -21,6 +21,8 @@ public:
     bool isWatch;
     bool isReload;
     Optional<DateTime> lastWriteTime;
+    float restartTime;
+    bool restartIsStop;
 };
 
 extern Siv3DRubyState fSiv3DRubyState;
