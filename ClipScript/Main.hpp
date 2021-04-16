@@ -11,6 +11,8 @@ public:
     , isCapture(false)
     , isWatch(false)
     , isReload(false)
+    , restartTime(0.0f)
+    , restartIsStop(false)
     {
     }
 
