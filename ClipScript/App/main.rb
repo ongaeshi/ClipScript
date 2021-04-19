@@ -7,8 +7,8 @@ script do |c|
   hue = 0
   loop do
     # Drawer.background(HSV.new(hue, 0.6, 1.0))
+    # hue += 2
     Drawer.background("gray")
-    hue += 1
     c.wait_delta
   end
 end
