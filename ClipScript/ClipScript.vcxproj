@@ -110,6 +110,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GifReader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MrbCamera2D.cpp" />
     <ClCompile Include="MrbCircle.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="MrbDrawableText.cpp" />
     <ClCompile Include="MrbEmoji.cpp" />
     <ClCompile Include="MrbFont.cpp" />
+    <ClCompile Include="MrbGifReader.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
     <ClCompile Include="MrbLine.cpp" />
     <ClCompile Include="MrbLineString.cpp" />
@@ -344,6 +346,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GifReader.hpp" />
     <ClInclude Include="Main.hpp" />
     <ClInclude Include="MrbCamera2D.hpp" />
     <ClInclude Include="MrbCircle.hpp" />
@@ -351,6 +354,7 @@
     <ClInclude Include="MrbDrawableText.hpp" />
     <ClInclude Include="MrbEmoji.hpp" />
     <ClInclude Include="MrbFont.hpp" />
+    <ClInclude Include="MrbGifReader.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
     <ClInclude Include="MrbLine.hpp" />
     <ClInclude Include="MrbLineString.hpp" />

@@ -420,6 +420,12 @@
     <ClCompile Include="mruby\src\gem_complex_complex.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GifReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MrbGifReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -866,6 +872,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MrbTexture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GifReader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbGifReader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

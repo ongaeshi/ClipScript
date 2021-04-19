@@ -141,4 +141,9 @@ script do |c|
   c.wait 100
 end
 
+script do |c|
+  gif = GifReader.new("exapmle/test.gif")
+end
+
+
 App.run
