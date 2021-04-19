@@ -9,7 +9,10 @@ class GifReader
 public:
 	GifReader(FilePathView path);
 
+	int32 duration() const { return mDuration; }
+
 private:
 	AnimatedGIFReader mReader;
+	int32 mDuration;
 };
 }
