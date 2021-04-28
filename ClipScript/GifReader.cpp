@@ -7,10 +7,9 @@ GifReader::GifReader(FilePathView path)
 : mReader(path)
 , mDuration(0)
 , mDelays()
+, mImages()
 {
-	Array<Image> images;
-
-	mReader.read(images, mDelays, mDuration);
+	mReader.read(mImages, mDelays, mDuration);
 }
 
 }
