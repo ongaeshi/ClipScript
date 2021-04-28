@@ -6,11 +6,11 @@ namespace siv3druby {
 GifReader::GifReader(FilePathView path)
 : mReader(path)
 , mDuration(0)
+, mDelays()
 {
 	Array<Image> images;
-	Array<int32> delays;
 
-	mReader.read(images, delays, mDuration);
+	mReader.read(images, mDelays, mDuration);
 }
 
 }

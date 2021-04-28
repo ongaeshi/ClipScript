@@ -144,6 +144,7 @@ end
 script do |c|
   gif = GifReader.new("example/test.gif")
   p gif.duration
+  p gif.delays
 end
 
 
