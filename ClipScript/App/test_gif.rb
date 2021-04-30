@@ -1,7 +1,7 @@
 require 'clip'
 
 test_gif = GifReader.new("example/test.gif")
-font = Font.new(50)
+font = Font.new(40)
 
 script do |c|
   Drawer.background("white")
@@ -12,7 +12,7 @@ end
 W = 0.5
 
 script do |c|
-  t = c.text(font, 0, 200, color: "orange")
+  t = c.text(font, 10, 250, color: "orange")
   loop do
     t.text = "GIFアニメを再生中"
     c.wait W
