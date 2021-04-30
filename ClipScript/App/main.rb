@@ -141,19 +141,4 @@ script do |c|
   c.wait 100
 end
 
-gif = GifReader.new("example/test.gif")
-
-script do |c|
-  p gif.duration
-  p gif.delays
-  
-  loop do
-    gif.textures.each do |e|
-      e.draw(0, 0)
-      c.wait_delta
-    end
-  end
-end
-
-
 App.run
