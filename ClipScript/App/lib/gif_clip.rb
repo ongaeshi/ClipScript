@@ -8,10 +8,11 @@ module Clip
       @reader = reader  # Need gc protection for images
       @textures = @reader.textures
       @i = 0
+      @rate = 1
 
       set_script do
         loop do
-          @i += 1
+          @i += 1 * @rate
           wait_delta
         end
       end
@@ -21,8 +22,8 @@ module Clip
       Drawer.texture(@textures[@i % @textures.count], 0, 0)
     end
 
-    def play
-    end
+    def play = @rate = 1.0
+    def stop = @rate = 0.0
   end
 
   class ClipObject
