@@ -15,6 +15,7 @@ private:
     static mrb_value initialize(mrb_state* mrb, mrb_value self);
     static mrb_value duration(mrb_state* mrb, mrb_value self);
     static mrb_value delays(mrb_state* mrb, mrb_value self);
-    static mrb_value textures(mrb_state *mrb, mrb_value self);
+    static mrb_value textures(mrb_state* mrb, mrb_value self);
+    static mrb_value index(mrb_state *mrb, mrb_value self);
 };
 }

@@ -17,6 +17,7 @@ void MrbGifReader::Init(mrb_state* mrb)
     mrb_define_method(mrb, Cc(), "duration", duration, MRB_ARGS_NONE());
     mrb_define_method(mrb, Cc(), "delays", delays, MRB_ARGS_NONE());
     mrb_define_method(mrb, Cc(), "textures", textures, MRB_ARGS_NONE());
+    mrb_define_method(mrb, Cc(), "index", index, MRB_ARGS_REQ(1));
 }
 
 //----------------------------------------------------------
@@ -62,6 +63,15 @@ mrb_value MrbGifReader::textures(mrb_state* mrb, mrb_value self)
     }
 
     return array;
+}
+
+//----------------------------------------------------------
+mrb_value MrbGifReader::index(mrb_state* mrb, mrb_value self)
+{
+    mrb_float timeSec;
+    mrb_get_args(mrb, "f", &timeSec);
+
+    return mrb_int_value(mrb, Self(self).index(timeSec));
 }
 
 }

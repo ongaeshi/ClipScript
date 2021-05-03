@@ -12,4 +12,10 @@ GifReader::GifReader(FilePathView path)
 	mReader.read(mImages, mDelays, mDuration);
 }
 
+//----------------------------------------------------------
+int32 GifReader::index(float timeSec)
+{
+	return AnimatedGIFReader::MillisecToIndex(timeSec * 1000, mDelays, mDuration);
+}
+
 }

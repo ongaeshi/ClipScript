@@ -7,19 +7,20 @@ module Clip
       super(parent)
       @reader = reader  # Need gc protection for images
       @textures = @reader.textures
-      @i = 0
+      @gif_time = 0
       @rate = 1
 
       set_script do
         loop do
-          @i += 1 * @rate
+          @gif_time += min_delta_time * @rate
           wait_delta
         end
       end
     end
 
     def draw
-      Drawer.texture(@textures[@i % @textures.count], 0, 0)
+      i = @reader.index(@gif_time)
+      Drawer.texture(@textures[i], 0, 0)
     end
 
     def play = @rate = 1.0

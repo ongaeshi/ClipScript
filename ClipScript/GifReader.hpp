@@ -13,6 +13,8 @@ public:
 	Array<int32> delays() const { return mDelays; }
 	Array<Image> images() const { return mImages; }
 
+	int32 index(float timeSec);
+
 private:
 	AnimatedGIFReader mReader;
 	int32 mDuration;
