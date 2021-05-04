@@ -29,9 +29,17 @@ module Clip
       root.update(0)
       
       while System.update do
-        @time += delta_time
+        # Divide into small time and execute update
+        t = delta_time == 0 ? 0 : min_delta_time
+        total_delta_time = 0
 
-        root.update(delta_time)
+        loop do
+          @time += t
+          total_delta_time += t
+          root.update(t)
+          break if total_delta_time >= delta_time
+        end
+
         root.draw
 
         if @time > @end_time
