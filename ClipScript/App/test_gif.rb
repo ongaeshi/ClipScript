@@ -11,17 +11,29 @@ end
 
 script do |c|
   g = c.gif(test_gif)
-  t = c.text(font, 10, 250, color: "orange")
-  loop do
+  t = c.text(font, 10, 200, color: "orange")
+
+  1.upto(2) do
     t.text = "GIFアニメを再生中"
-    c.wait 2.4
-    t.text = "GIFアニメを停止🎃"
-    g.stop
-    c.wait 1.2
-    g.play
+    1.upto(3) do
+      t.text += "."
+      c.wait 0.4
+    end
+  end
+  c.until_time 2.4
+
+  t.text = "GIFアニメを停止🎃"
+  g.stop
+  c.until_time 3.6
+
+  g.play
+  1.upto(4) do
     t.text = "4倍速"
     g.rate = 4
-    c.wait 1.2
+    1.upto(3) do
+      t.text += "."
+      c.wait 0.1
+    end
   end
 end
 
