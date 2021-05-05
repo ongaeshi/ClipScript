@@ -31,10 +31,14 @@ mrb_value MrbGifReader::initialize(mrb_state *mrb, mrb_value self)
     return self;
 }
 
+namespace {
+    const float MICROSEC_TO_SEC = 0.001f;
+}
+
 //----------------------------------------------------------
 mrb_value MrbGifReader::duration(mrb_state* mrb, mrb_value self)
 {
-    return mrb_int_value(mrb, Self(self).duration());
+    return mrb_float_value(mrb, Self(self).duration() * MICROSEC_TO_SEC);
 }
 
 //----------------------------------------------------------
@@ -43,7 +47,7 @@ mrb_value MrbGifReader::delays(mrb_state* mrb, mrb_value self)
     auto array = mrb_ary_new(mrb);
 
     for (int delay : Self(self).delays()) {
-        mrb_ary_push(mrb, array, mrb_int_value(mrb, delay));
+        mrb_ary_push(mrb, array, mrb_float_value(mrb, delay * MICROSEC_TO_SEC));
     }
 
     return array;
