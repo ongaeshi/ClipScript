@@ -39,6 +39,10 @@ module Clip
       @children.push(clip)
     end
 
+    def delete_clip(clip)
+      @children.delete(clip)
+    end
+
     def reset
       clear_clip
       reset_script
@@ -109,7 +113,7 @@ module Clip
         wait_delta
       end
 
-      @children.delete scene
+      delete_clip(scene)
     end
   end
 end
