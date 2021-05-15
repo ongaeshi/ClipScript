@@ -91,12 +91,25 @@ module Clip
         Fiber.yield
       end
     end
+
+    def fiber_end? = @fiber && !@fiber.alive?
   end
 
   class BlockClip < ClipObject
     def initialize(parent, &block)
       super(parent)
       set_script(&block)
+    end
+
+    def scene_script(&block)
+      scene = BlockClip.new(self, &block)
+
+      loop do
+        break if scene.fiber_end?
+        wait_delta
+      end
+
+      @children.delete scene
     end
   end
 end
