@@ -164,7 +164,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     const auto UiPosY = Scene::Height() - UiHeight;
     const auto UiOffset = 10;
 
-    Rect(0, UiPosY, 800, UiHeight).draw(ColorF(0.8, 0.9, 1.0));
+    Rect(0, UiPosY, Scene::Width(), UiHeight).draw(ColorF(0.8, 0.9, 1.0));
 
     if (SimpleGUI::Button(button, Vec2(20, UiPosY + UiOffset))) {
         is_stop = !is_stop;
@@ -175,7 +175,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(100, UiPosY + UiOffset, Palette::Black);
-    font(Cursor::Pos()).draw(690, UiPosY + UiOffset, Palette::Black);
+
+    if (Cursor::Pos().y < UiPosY) {
+        font(Cursor::Pos()).draw(690, UiPosY + UiOffset, Palette::Black);
+    }
 
     mrb_value array = mrb_ary_new(mrb);
     mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
