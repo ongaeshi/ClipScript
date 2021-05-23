@@ -170,14 +170,14 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = !is_stop;
     }
 
-    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(180, UiPosY + UiOffset), 500)) {
+    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(180, UiPosY + UiOffset), Scene::Width() - 300)) {
         is_stop = true;
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(100, UiPosY + UiOffset, Palette::Black);
 
     if (Cursor::Pos().y < UiPosY) {
-        font(Cursor::Pos()).draw(690, UiPosY + UiOffset, Palette::Black);
+        font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset, Palette::Black);
     }
 
     mrb_value array = mrb_ary_new(mrb);
