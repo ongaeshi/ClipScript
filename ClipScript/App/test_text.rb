@@ -1,5 +1,6 @@
 require 'clip'
 
+App.window_size(800, 300)
 App.end_time = 5
 
 script do |c|
