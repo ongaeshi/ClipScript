@@ -166,15 +166,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     Rect(0, UiPosY, Scene::Width(), UiHeight).draw(ColorF(0.8, 0.9, 1.0));
 
-    if (SimpleGUI::Button(button, Vec2(20, UiPosY + UiOffset))) {
+    if (SimpleGUI::Button(button, Vec2(10, UiPosY + UiOffset))) {
         is_stop = !is_stop;
     }
 
-    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(180, UiPosY + UiOffset), Scene::Width() - 300)) {
+    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), Scene::Width() - 270)) {
         is_stop = true;
     }
 
-    font(U"{:3.2f}"_fmt(time)).draw(100, UiPosY + UiOffset, Palette::Black);
+    font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
 
     if (Cursor::Pos().y < UiPosY) {
         font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset, Palette::Black);
