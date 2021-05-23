@@ -14,6 +14,12 @@ module Drawer
   end
   module_function :circle
 
+  def rect(x, y, w, h, color)
+    color = to_color(color)
+    Rect.new(x, y, w, h).draw(color)
+  end
+  module_function :rect
+
   def text(font, x, y, text, color)
     font[text].draw(x, y, to_color(color))
   end

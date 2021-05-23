@@ -7,6 +7,7 @@ require 'drawer'
 require 'line_clip'
 require 'circle_clip'
 require 'gif_clip'
+require 'rect_clip'
 require 'text_clip'
 require 'texture_clip'
 include Clip
