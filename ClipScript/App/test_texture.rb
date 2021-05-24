@@ -3,7 +3,7 @@
 
 require 'clip'
 
-App.end_time = 18
+App.end_time = 20
 
 W = 2
 
@@ -14,7 +14,7 @@ script do |c|
   w = c.texture(windmill, 0, 0)
   t = c.text(font, 10, 330)
 
-  t.text = "Normal"
+  t.text = "Normal\n(#{w.width}, #{w.height})"
   c.wait W
 
   t.text = "color = [128, 0, 0]"
@@ -115,6 +115,15 @@ script do |c|
     end
     c.wait_delta
   end
+
+  t.text = "width = 200"
+  w.rotate = 0
+  w.width = 200
+  c.wait 1
+
+  t.text = "height = 200"
+  w.height = 200
+  c.wait 1
 end
 
 def reset(t)

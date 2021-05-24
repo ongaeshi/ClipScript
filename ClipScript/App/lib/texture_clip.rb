@@ -37,6 +37,19 @@ module Clip
     def scale(x, y)
       @scale_x, @scale_y = x, y
     end
+
+    def width = @texture.width
+    def height = @texture.height
+
+    def width=(value)
+      rate = value / @texture.width 
+      scale(rate, rate)
+    end
+
+    def height=(value)
+      rate = value / @texture.height
+      scale(rate, rate)
+    end
   end
 
   class ClipObject
