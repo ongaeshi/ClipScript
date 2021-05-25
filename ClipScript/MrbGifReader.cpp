@@ -3,6 +3,7 @@
 #include "MrbTexture.hpp"
 #include "mruby/array.h"
 #include "mruby/string.h"
+#include "mruby/variable.h"
 
 //----------------------------------------------------------
 namespace siv3druby {
@@ -30,6 +31,20 @@ mrb_value MrbGifReader::initialize(mrb_state *mrb, mrb_value self)
 
     auto cstr = mrb_string_value_ptr(mrb, path);
     Initialize(self, new GifReader(Unicode::FromUTF8(cstr)));
+
+    // @textures
+    auto textures = mrb_ary_new(mrb);
+
+    for (Image image : Self(self).images()) {
+        mrb_ary_push(
+            mrb,
+            textures,
+            MrbTexture::ToMrb(mrb, new Texture(image))
+        );
+    }
+
+    mrb_iv_set(mrb, self, mrb_intern_cstr(mrb, "@textures"), textures);
+
     return self;
 }
 
@@ -58,17 +73,7 @@ mrb_value MrbGifReader::delays(mrb_state* mrb, mrb_value self)
 //----------------------------------------------------------
 mrb_value MrbGifReader::textures(mrb_state* mrb, mrb_value self)
 {
-    auto array = mrb_ary_new(mrb);
-
-    for (Image image : Self(self).images()) {
-        mrb_ary_push(
-            mrb,
-            array,
-            MrbTexture::ToMrb(mrb, new Texture(image))
-            );
-    }
-
-    return array;
+    return mrb_iv_get(mrb, self, mrb_intern_cstr(mrb, "@textures"));
 }
 
 //----------------------------------------------------------
