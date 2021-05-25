@@ -14,7 +14,7 @@ script do |c|
   t = c.text(font, 10, 200, color: "orange")
 
   t_center = c.text(font, 10, 70, color: [32, 32, 32, 32])
-  t_center.text = "test.gif"
+  t_center.text = "test.gif(#{test_gif.width}, #{test_gif.height})"
 
   1.upto(2) do
     t.text = "再生中"

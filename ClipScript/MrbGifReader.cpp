@@ -18,6 +18,8 @@ void MrbGifReader::Init(mrb_state* mrb)
     mrb_define_method(mrb, Cc(), "delays", delays, MRB_ARGS_NONE());
     mrb_define_method(mrb, Cc(), "textures", textures, MRB_ARGS_NONE());
     mrb_define_method(mrb, Cc(), "index", index, MRB_ARGS_REQ(1));
+    mrb_define_method(mrb, Cc(), "width", width, MRB_ARGS_NONE());
+    mrb_define_method(mrb, Cc(), "height", height, MRB_ARGS_NONE());
 }
 
 //----------------------------------------------------------
@@ -76,6 +78,18 @@ mrb_value MrbGifReader::index(mrb_state* mrb, mrb_value self)
     mrb_get_args(mrb, "f", &timeSec);
 
     return mrb_int_value(mrb, Self(self).index(timeSec));
+}
+
+//----------------------------------------------------------
+mrb_value MrbGifReader::width(mrb_state* mrb, mrb_value self)
+{
+    return mrb_int_value(mrb, Self(self).width());
+}
+
+//----------------------------------------------------------
+mrb_value MrbGifReader::height(mrb_state* mrb, mrb_value self)
+{
+    return mrb_int_value(mrb, Self(self).height());
 }
 
 }
