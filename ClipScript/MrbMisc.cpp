@@ -170,8 +170,13 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = !is_stop;
     }
 
-    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), Scene::Width() - 270)) {
+    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), Scene::Width() - 350)) {
         is_stop = true;
+    }
+
+    bool isLoop = true;
+
+    if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset))) {
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
