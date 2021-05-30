@@ -59,7 +59,7 @@ namespace siv3druby {
 
     void mainLoop()
     {
-        Window::SetTitle(U"SketchWaltz 0.0.4 dev");
+        Window::SetTitle(U"ClipScript 0.0.1 dev");
 
         mrb_state* mrb = mrb_open();
 
