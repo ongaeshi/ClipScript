@@ -13,6 +13,7 @@ public:
     , isReload(false)
     , restartTime(0.0f)
     , restartIsStop(false)
+    , restartIsNotLoop(false)
     {
     }
 
@@ -25,6 +26,7 @@ public:
     Optional<DateTime> lastWriteTime;
     float restartTime;
     bool restartIsStop;
+    bool restartIsNotLoop;
 };
 
 extern Siv3DRubyState fSiv3DRubyState;

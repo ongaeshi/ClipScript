@@ -5,13 +5,13 @@ module Clip
     attr_reader :root, :time
     attr_accessor :start_time, :end_time, :is_stop, :is_loop
 
-    def initialize(start_time = nil, is_stop = nil)
+    def initialize(start_time = nil, is_stop = nil, is_loop = nil)
       @root = RootClip.new
       @time = 0.0
       @start_time = start_time || 0.0
       @end_time = 4.0
       @is_stop = is_stop || false
-      @is_loop = true
+      @is_loop = is_loop.nil? ? true : is_loop
     end
 
     def script(&block)
@@ -71,20 +71,12 @@ module Clip
           end
         end
       end
-    end  
+    end
   end
 
-  if Object.const_defined?("CLIP_MANAGER_START_TIME")
-    if Object.const_defined?("CLIP_MANAGER_IS_STOP")
-      $clip_manager = ClipManager.new(CLIP_MANAGER_START_TIME, CLIP_MANAGER_IS_STOP)
-    else
-      $clip_manager = ClipManager.new(CLIP_MANAGER_START_TIME)
-    end
-  else
-    if Object.const_defined?("CLIP_MANAGER_IS_STOP")
-      $clip_manager = ClipManager.new(nil, CLIP_MANAGER_IS_STOP)
-    else
-      $clip_manager = ClipManager.new
-    end
-  end
+  $clip_manager = ClipManager.new(
+    Object.const_defined?("CLIP_MANAGER_START_TIME") ? CLIP_MANAGER_START_TIME : nil,
+    Object.const_defined?("CLIP_MANAGER_IS_STOP") ? CLIP_MANAGER_IS_STOP : nil,
+    Object.const_defined?("CLIP_MANAGER_IS_LOOP") ? CLIP_MANAGER_IS_LOOP : nil,
+  )
 end
