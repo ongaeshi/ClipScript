@@ -155,8 +155,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     static const Font font(20);
 
     mrb_float time, end_time;
-    mrb_bool is_stop;
-    mrb_get_args(mrb, "ffb", &time, &end_time, &is_stop);
+    mrb_bool is_stop, is_loop;
+    mrb_get_args(mrb, "ffbb", &time, &end_time, &is_stop, &is_loop);
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
@@ -174,9 +174,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = true;
     }
 
-    bool isLoop = true;
+    bool isLoop = is_loop;
 
     if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset))) {
+        is_loop = isLoop;
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
@@ -188,6 +189,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_value array = mrb_ary_new(mrb);
     mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
     mrb_ary_push(mrb, array, mrb_bool_value(is_stop));
+    mrb_ary_push(mrb, array, mrb_bool_value(is_loop));
     return array;
 }
 }

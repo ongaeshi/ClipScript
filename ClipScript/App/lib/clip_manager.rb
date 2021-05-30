@@ -3,7 +3,7 @@ require 'clip_object'
 module Clip
   class ClipManager
     attr_reader :root, :time
-    attr_accessor :start_time, :end_time, :is_stop
+    attr_accessor :start_time, :end_time, :is_stop, :is_loop
 
     def initialize(start_time = nil, is_stop = nil)
       @root = RootClip.new
@@ -11,6 +11,7 @@ module Clip
       @start_time = start_time || 0.0
       @end_time = 4.0
       @is_stop = is_stop || false
+      @is_loop = true
     end
 
     def script(&block)
@@ -42,7 +43,7 @@ module Clip
 
         root.draw
 
-        if @time > @end_time
+        if @time > @end_time && @is_loop
           @time = 0
 
           root.children.each do |c|
@@ -52,7 +53,7 @@ module Clip
 
         prev_time = @time
 
-        @time, @is_stop = timeline_ui(@time, @end_time, @is_stop)
+        @time, @is_stop, @is_loop = timeline_ui(@time, @end_time, @is_stop, @is_loop)
       
         unless @is_stop
           delta_time = min_delta_time
