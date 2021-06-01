@@ -1,0 +1,37 @@
+name: build
+
+on: [push]
+env:
+  app-path: ./ClipScript/App
+  sln-name: ./ClipScript.sln
+jobs:
+  build:
+    name: MSBuild
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # OpenSiv3D 0.4.3 セットアップ
+    - name: Setup s3d
+      run: |
+        bitsadmin /transfer s3d-download "https://siv3d.jp/downloads/Siv3D/manual/0.4.3/OpenSiv3D_SDK(0.4.3).zip" "C:\OpenSiv3D_SDK(0.4.3).zip"
+        Expand-Archive -Path "C:\OpenSiv3D_SDK(0.4.3).zip" -DestinationPath "C:"
+      shell: powershell
+    # ビルド
+    - name: MSBuild
+      run: msbuild ${{env.sln-name}} -p:Configuration=Release;Platform="x64"
+      shell: cmd
+      env:
+        SIV3D_0_4_3: C:\OpenSiv3D_SDK(0.4.3)
+    # ビルド結果をアップロード
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: build-result
+        path: ${{env.app-path}}
+
