@@ -184,19 +184,25 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = true;
     }
 
-    if (KeyRight.down()) {
-        if (KeyControl.pressed()) {
-            time = end_time - MinDeltaTime;
-        } else {
-            time += MinDeltaTime;
+    if (KeyLeft.down() || KeyRight.down()) {
+        if (!is_stop) {
+            is_stop = true;
         }
-    }
 
-    if (KeyLeft.down()) {
-        if (KeyControl.pressed()) {
-            time = 0.0f;
-        } else {
-            time -= MinDeltaTime * 2;
+        if (KeyRight.down()) {
+            if (KeyControl.pressed()) {
+                time = end_time - MinDeltaTime;
+            } else {
+                time += MinDeltaTime;
+            }
+        }
+
+        if (KeyLeft.down()) {
+            if (KeyControl.pressed()) {
+                time = 0.0f;
+            } else {
+                time -= MinDeltaTime * 2;
+            }
         }
     }
 
