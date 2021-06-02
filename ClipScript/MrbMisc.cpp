@@ -185,11 +185,19 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     }
 
     if (KeyRight.down()) {
-        time += MinDeltaTime;
+        if (KeyControl.pressed()) {
+            time = end_time - MinDeltaTime;
+        } else {
+            time += MinDeltaTime;
+        }
     }
 
     if (KeyLeft.down()) {
-        time -= MinDeltaTime * 2;
+        if (KeyControl.pressed()) {
+            time = 0.0f;
+        } else {
+            time -= MinDeltaTime * 2;
+        }
     }
 
     bool isLoop = is_loop;
