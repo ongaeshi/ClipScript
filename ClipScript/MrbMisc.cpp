@@ -127,7 +127,7 @@ static mrb_value center(mrb_state *mrb, mrb_value self)
 static mrb_value resize(mrb_state *mrb, mrb_value self)
 {
     mrb_int width, height;
-    mrb_bool centering = true;
+    mrb_bool centering = false;
     mrb_get_args(mrb, "ii|b", &width, &height, &centering);
 
 	return mrb_bool_value(Window::Resize(width, height, WindowResizeOption::ResizeSceneSize, centering));
