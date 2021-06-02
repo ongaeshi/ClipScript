@@ -153,6 +153,7 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 {
     static const Font font(20);
+    const float MinDeltaTime = 1.0f / 60;
 
     mrb_float time, end_time;
     mrb_bool is_stop, is_loop;
@@ -174,12 +175,21 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     Rect(0, UiPosY, Scene::Width(), UiHeight).draw(ColorF(0.8, 0.9, 1.0));
 
-    if (SimpleGUI::Button(button, Vec2(10, UiPosY + UiOffset))) {
+    if (SimpleGUI::Button(button, Vec2(10, UiPosY + UiOffset)) ||
+        KeySpace.down()) {
         is_stop = !is_stop;
     }
 
     if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), SliderWidth)) {
         is_stop = true;
+    }
+
+    if (KeyRight.down()) {
+        time += MinDeltaTime;
+    }
+
+    if (KeyLeft.down()) {
+        time -= MinDeltaTime * 2;
     }
 
     bool isLoop = is_loop;
