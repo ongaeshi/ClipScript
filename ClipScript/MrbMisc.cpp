@@ -160,7 +160,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
-    const auto UiHeight = 60;
+    int UiOffsetY = 0;
+    int SliderWidth = Scene::Width() - 350;
+
+    if (Scene::Width() <= 400) {
+        UiOffsetY = 60;
+        SliderWidth = Scene::Width() - 160;
+    }
+
+    const auto UiHeight = 60 + UiOffsetY;
     const auto UiPosY = Scene::Height() - UiHeight;
     const auto UiOffset = 10;
 
@@ -170,20 +178,20 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = !is_stop;
     }
 
-    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), Scene::Width() - 350)) {
+    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), SliderWidth)) {
         is_stop = true;
     }
 
     bool isLoop = is_loop;
 
-    if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset))) {
+    if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset + UiOffsetY))) {
         is_loop = isLoop;
     }
 
     font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
 
     if (Cursor::Pos().y < UiPosY) {
-        font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset, Palette::Black);
+        font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY, Palette::Black);
     }
 
     mrb_value array = mrb_ary_new(mrb);

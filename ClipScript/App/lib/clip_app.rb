@@ -28,7 +28,8 @@ module Clip
 
   class App
     def self.window_size(x, y)
-      Window.resize(x, y + 60) # MrbMisc.cpp#UiHeight
+      yadd = x > 400 ? 60 : 120  # MrbMisc.cpp#UiHeight
+      Window.resize(x, y + yadd)
     end
 
     def self.start_time=(time)
