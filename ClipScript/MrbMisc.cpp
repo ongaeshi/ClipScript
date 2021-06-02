@@ -184,12 +184,17 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_stop = true;
     }
 
-    if (KeyLeft.down() || KeyRight.down()) {
+    const auto duration = Duration(0.5);
+
+    if (KeyLeft.down() || 
+        KeyRight.down() ||
+        KeyLeft.pressedDuration() > duration ||
+        KeyRight.pressedDuration() > duration) {
         if (!is_stop) {
             is_stop = true;
         }
 
-        if (KeyRight.down()) {
+        if (KeyRight.pressed()) {
             if (KeyControl.pressed()) {
                 time = end_time - MinDeltaTime;
             } else {
@@ -197,7 +202,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             }
         }
 
-        if (KeyLeft.down()) {
+        if (KeyLeft.pressed()) {
             if (KeyControl.pressed()) {
                 time = 0.0f;
             } else {
