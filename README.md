@@ -59,3 +59,13 @@ App.run
 ## スクリーンショット
 
 ![screen-01](image/clipscript-screen-01.png)
+
+## キーボードショートカット
+
+|  キー  | 説明  |
+| ---- | ---- |
+|  SPACE  |  PLAY/STOP  |
+|  →      |  TIME++  |
+|  Ctrl + → |  TIME = end_time  |
+|  ←      |  TIME--  |
+|  Ctrl + ← |  TIME = 0  |
