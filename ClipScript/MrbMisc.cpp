@@ -173,15 +173,20 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     const auto UiPosY = Scene::Height() - UiHeight;
     const auto UiOffset = 10;
 
-    Rect(0, UiPosY, Scene::Width(), UiHeight).draw(ColorF(0.8, 0.9, 1.0));
+    if (!is_hidden) {
+        Rect(0, UiPosY, Scene::Width(), UiHeight).draw(ColorF(0.8, 0.9, 1.0));
 
-    if (SimpleGUI::Button(button, Vec2(10, UiPosY + UiOffset)) ||
-        KeySpace.down()) {
-        is_stop = !is_stop;
+        if (SimpleGUI::Button(button, Vec2(10, UiPosY + UiOffset))) {
+            is_stop = !is_stop;
+        }
+
+        if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), SliderWidth)) {
+            is_stop = true;
+        }
     }
 
-    if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), SliderWidth)) {
-        is_stop = true;
+    if (KeySpace.down()) {
+        is_stop = !is_stop;
     }
 
     const auto duration = Duration(0.5);
@@ -211,20 +216,22 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         }
     }
 
-    bool isLoop = is_loop;
+    if (!is_hidden) {
+        bool isLoop = is_loop;
 
-    if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset + UiOffsetY))) {
-        is_loop = isLoop;
+        if (SimpleGUI::CheckBox(isLoop, U"🔄", Vec2(Scene::Width() - 190, UiPosY + UiOffset + UiOffsetY))) {
+            is_loop = isLoop;
+        }
+
+        font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
+
+        if (Cursor::Pos().y < UiPosY) {
+            font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY, Palette::Black);
+        }
     }
 
     if (KeyF11.down()) {
         is_hidden = !is_hidden;
-    }
-
-    font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
-
-    if (Cursor::Pos().y < UiPosY) {
-        font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY, Palette::Black);
     }
 
     mrb_value array = mrb_ary_new(mrb);
