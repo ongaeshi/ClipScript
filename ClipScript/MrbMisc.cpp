@@ -217,6 +217,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_loop = isLoop;
     }
 
+    if (KeyF11.down()) {
+        is_hidden = !is_hidden;
+    }
+
     font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
 
     if (Cursor::Pos().y < UiPosY) {

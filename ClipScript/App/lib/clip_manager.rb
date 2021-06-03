@@ -53,8 +53,17 @@ module Clip
         end
 
         prev_time = @time
+        prev_hidden = @is_hidden
 
         @time, @is_stop, @is_loop, @is_hidden = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden)
+
+        if prev_hidden != @is_hidden
+          if @is_hidden
+            Window.resize(400, 225)
+          else
+            App.window_size(400, 225)
+          end
+        end
       
         unless @is_stop
           delta_time = min_delta_time
