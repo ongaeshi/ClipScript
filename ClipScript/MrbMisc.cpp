@@ -156,8 +156,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     const float MinDeltaTime = 1.0f / 60;
 
     mrb_float time, end_time;
-    mrb_bool is_stop, is_loop;
-    mrb_get_args(mrb, "ffbb", &time, &end_time, &is_stop, &is_loop);
+    mrb_bool is_stop, is_loop, is_hidden;
+    mrb_get_args(mrb, "ffbbb", &time, &end_time, &is_stop, &is_loop, &is_hidden);
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
@@ -227,6 +227,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
     mrb_ary_push(mrb, array, mrb_bool_value(is_stop));
     mrb_ary_push(mrb, array, mrb_bool_value(is_loop));
+    mrb_ary_push(mrb, array, mrb_bool_value(is_hidden));
     return array;
 }
 }
