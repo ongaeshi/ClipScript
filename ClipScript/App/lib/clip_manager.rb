@@ -13,6 +13,27 @@ module Clip
       @is_stop = is_stop || false
       @is_loop = is_loop.nil? ? true : is_loop
       @is_hidden = false
+      window_size(800, 600)
+    end
+
+    def window_size(x, y)
+      @width = x
+      @height = y
+      window_resize
+    end
+
+    def window_resize
+      Window.resize(@width, @height + y_add_offset)
+    end
+
+    def y_add_offset
+      if @is_hidden
+        0
+      elsif @width > 400
+        60
+      else
+        120 # MrbMisc.cpp#UiHeight
+      end
     end
 
     def script(&block)
@@ -58,11 +79,7 @@ module Clip
         @time, @is_stop, @is_loop, @is_hidden = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden)
 
         if prev_hidden != @is_hidden
-          if @is_hidden
-            Window.resize(400, 225)
-          else
-            App.window_size(400, 225)
-          end
+          window_resize
         end
       
         unless @is_stop

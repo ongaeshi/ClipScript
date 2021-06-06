@@ -28,8 +28,7 @@ module Clip
 
   class App
     def self.window_size(x, y)
-      yadd = x > 400 ? 60 : 120  # MrbMisc.cpp#UiHeight
-      Window.resize(x, y + yadd)
+      $clip_manager.window_size(x, y)
     end
 
     def self.start_time=(time)
