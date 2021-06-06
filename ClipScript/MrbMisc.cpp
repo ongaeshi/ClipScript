@@ -211,7 +211,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = 0.0f;
             } else {
-                time -= MinDeltaTime * 2;
+                time -= 1.0;
             }
         }
     }

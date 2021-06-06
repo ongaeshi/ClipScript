@@ -3,6 +3,10 @@ ClipScriptは短い動画を簡単に作成するためのスクリプト言語�
 
 ホットリロードに対応しているため素早くイテレーションできます。また画像やgifアニメのようなクリップ素材を変更せずにサイズ(幅と高さ)、色、再生レートの調整が可能です。
 
+## スクリーンショット
+
+![screen-01](image/clipscript-screen-01.png)
+
 ## サンプルコード
 ![hello.gif](image/hello.gif)
 
@@ -56,10 +60,6 @@ end
 App.run
 ```
 
-## スクリーンショット
-
-![screen-01](image/clipscript-screen-01.png)
-
 ## キーボードショートカット
 
 |  キー  | 説明  |
@@ -67,5 +67,5 @@ App.run
 |  SPACE  |  PLAY/STOP  |
 |  →      |  TIME++  |
 |  Ctrl + → |  TIME = end_time  |
-|  ←      |  TIME--  |
+|  ←      |  TIME -= 1  |
 |  Ctrl + ← |  TIME = 0  |
