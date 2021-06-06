@@ -216,6 +216,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         }
     }
 
+    if (KeyF10.down()) {
+        is_loop = !is_loop;
+    }
+
     if (!is_hidden) {
         bool isLoop = is_loop;
 
