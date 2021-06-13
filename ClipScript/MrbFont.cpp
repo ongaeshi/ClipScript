@@ -31,7 +31,7 @@ mrb_value MrbFont::initialize(mrb_state *mrb, mrb_value self)
 mrb_value MrbFont::aref(mrb_state *mrb, mrb_value self)
 {
     mrb_value str, length = mrb_nil_value();
-    mrb_get_args(mrb, "S|i", &str, &length);
+    mrb_get_args(mrb, "S|o", &str, &length);
 
     auto cstr = mrb_string_value_ptr(mrb, str);
     auto strUtf32 = Unicode::FromUTF8(cstr);
