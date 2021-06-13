@@ -19,25 +19,15 @@ script do |root|
 end  
 
 script do |root|
-  t = root.text(font, 0, 0, color: "black", text: "Hello, ")
+  t = root.text(font, 0, 0, color: "black", text: "Hello, World!", length: 0)
   root.wait 0.2
 
-  t.text += "W"
-  root.wait 0.2
+  1.upto(13) do # t.text.length
+    p t.length
+    t.length += 1
+    root.wait 0.2
+  end
 
-  t.text += "o"
-  root.wait 0.2
-
-  t.text += "r"
-  root.wait 0.2
-
-  t.text += "l"
-  root.wait 0.2
-
-  t.text += "d"
-  root.wait 0.2
-
-  t.text += "!"
   root.until_time 2
 
   x = root.texture(smile, 180, 100)
