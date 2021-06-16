@@ -13,10 +13,15 @@ module Clip
       @text = opt[:text] || ""
       @color = opt[:color] || "black"
       @length = opt[:length]
+      @center = opt[:center] || false
     end
 
     def draw
-      Drawer.text(@font, @x, @y, @text, @color, @length)
+      if @center
+        Drawer.text_at(@font, @x, @y, @text, @color, @length)
+      else
+        Drawer.text(@font, @x, @y, @text, @color, @length)
+      end
     end
   end
 

@@ -19,17 +19,24 @@ script do |root|
 end  
 
 script do |root|
-  t = root.text(font, 0, 0, color: "black", text: "Hello, World!", length: 0)
+  t = root.text(font, 200, 110, color: "black", text: "Hello, World!", length: 0, center: true)
   root.wait 0.2
 
-  1.upto(13) do
+  1.upto(7) do
     t.length += 1
-    root.wait 0.2
+    root.wait 0.1
   end
 
-  root.until_time 2
+  root.wait 0.3
 
-  x = root.texture(smile, 180, 100)
+  1.upto(6) do
+    t.length += 1
+    root.wait 0.08
+  end
+
+  root.until_time 2.5
+
+  x = root.texture(smile, 180, 150)
   x.scale(0.4, 0.4)
 end
 
