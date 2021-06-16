@@ -20,8 +20,8 @@ module Drawer
   end
   module_function :rect
 
-  def text(font, x, y, text, color, length = nil)
-    font[text, length].draw(x, y, to_color(color))
+  def text(font, x, y, text, color, offset = nil, length = nil)
+    font[text, offset, length].draw(x, y, to_color(color))
   end
   module_function :text
 
