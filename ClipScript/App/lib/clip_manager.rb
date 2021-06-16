@@ -13,7 +13,8 @@ module Clip
       @is_stop = is_stop || false
       @is_loop = is_loop.nil? ? true : is_loop
       @is_hidden = false
-      window_size(800, 600)
+      @width = 800
+      @height = 600
     end
 
     def window_size(x, y)
