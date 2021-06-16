@@ -30,27 +30,13 @@ mrb_value MrbFont::initialize(mrb_state *mrb, mrb_value self)
 //----------------------------------------------------------
 mrb_value MrbFont::aref(mrb_state *mrb, mrb_value self)
 {
-    mrb_value str, offset = mrb_nil_value(), length = mrb_nil_value();
-    mrb_get_args(mrb, "S|oo", &str, &offset, &length);
+    mrb_value str, length = mrb_nil_value();
+    mrb_get_args(mrb, "S|o", &str, &length);
 
     auto cstr = mrb_string_value_ptr(mrb, str);
     auto strUtf32 = Unicode::FromUTF8(cstr);
 
-    if (!mrb_nil_p(offset)) {
-        if (!mrb_nil_p(length)) {
-            strUtf32 = strUtf32.substr(mrb_integer(offset), mrb_integer(length));
-        } else {
-            strUtf32 = strUtf32.substr(mrb_integer(offset));
-        }
-
-        String padding;
-
-        for (int i = 0; i < mrb_integer(offset); i++) {
-            padding.append(U" ");
-        }
-
-        strUtf32 = padding + strUtf32;
-    } else if (!mrb_nil_p(length)) {
+    if (!mrb_nil_p(length)) {
         strUtf32 = strUtf32.substr(0, mrb_integer(length));
     }
     

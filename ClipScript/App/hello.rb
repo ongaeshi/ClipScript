@@ -19,12 +19,12 @@ script do |root|
 end  
 
 script do |root|
-  t = root.text(font, 0, 0, color: "black", text: "Hello, World!", offset: 0, length: 1)
+  t = root.text(font, 0, 0, color: "black", text: "Hello, World!", length: 0)
   root.wait 0.2
 
   1.upto(13) do
-    t.offset += 1
-    root.wait 0.5
+    t.length += 1
+    root.wait 0.2
   end
 
   root.until_time 2
