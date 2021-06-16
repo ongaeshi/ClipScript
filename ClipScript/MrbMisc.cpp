@@ -245,6 +245,14 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_ary_push(mrb, array, mrb_bool_value(is_hidden));
     return array;
 }
+
+mrb_value siv3d_strlen(mrb_state* mrb, mrb_value self)
+{
+    mrb_value str;
+    mrb_get_args(mrb, "S", &str);
+    return mrb_fixnum_value(Unicode::FromUTF8(mrb_string_value_ptr(mrb, str)).length());
+}
+
 }
 
 //----------------------------------------------------------
@@ -324,6 +332,12 @@ void MrbMisc::Init(mrb_state* mrb)
         //struct RClass *cc = mrb_module_get(mrb, "Math");
         struct RClass* cc = mrb_define_module(mrb, "Math");
         mrb_define_class_method(mrb, cc, "radians", radians, MRB_ARGS_REQ(1));
+    }
+
+    {
+        struct RClass* cc = mrb_define_module(mrb, "Siv3d");
+
+        mrb_define_class_method(mrb, cc, "strlen", siv3d_strlen, MRB_ARGS_REQ(1));
     }
 }
 

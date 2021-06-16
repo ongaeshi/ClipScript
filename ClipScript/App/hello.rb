@@ -2,7 +2,8 @@ require 'clip'
 
 App.window_size(400, 225)
 
-font = Font.new(60)
+font_s = Font.new(40)
+font = Font.new(50)
 smile = Texture.new(Emoji.new("😀"))
 
 script do |root|
@@ -19,7 +20,7 @@ script do |root|
 end  
 
 script do |root|
-  t = root.text(font, 200, 110, color: "black", text: "Hello, World!", length: 0, center: true)
+  t = root.text(font, 200, 30, color: "black", text: "Hello, World!", length: 0, center: true)
   root.wait 0.2
 
   1.upto(7) do
@@ -34,7 +35,16 @@ script do |root|
     root.wait 0.08
   end
 
-  root.until_time 2.5
+  root.wait 0.3
+
+  t2 = root.text(font_s, 200, 110, color: "blue", text: "こんにちは、世界！", length: 0, center: true)
+
+  1.upto(t2.text.length) do
+    t2.length += 1
+    root.wait 0.1
+  end
+
+  root.until_time 3.5
 
   x = root.texture(smile, 180, 150)
   x.scale(0.4, 0.4)

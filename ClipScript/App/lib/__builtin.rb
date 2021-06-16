@@ -212,3 +212,9 @@ class Palette
 end
 
 def min_delta_time = 1.0 / 60  # Assume 60fps
+
+class String
+  def length
+    Siv3d::strlen(self)
+  end
+end
