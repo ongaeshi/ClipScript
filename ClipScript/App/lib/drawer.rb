@@ -56,7 +56,7 @@ module Drawer
     "black" => "#111111",
     "gray" => "#AAAAAA",
     "silver" => "#DDDDDD",
-    "white" => "#FFFFFF",
+    "white" => "#FFFFFF"
   }
 
   COLOR_ARRAY = [
@@ -76,7 +76,7 @@ module Drawer
     "black",
     "gray",
     "silver",
-    "white",
+    "white"
   ]
 
   def to_color(src)

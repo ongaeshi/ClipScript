@@ -1,4 +1,4 @@
-require 'clip'
+require "clip"
 
 # App.start_time = 1.8
 # App.is_stop = true

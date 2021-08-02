@@ -1,4 +1,4 @@
-require 'clip_object'
+require "clip_object"
 
 module Clip
   class ClipManager
@@ -43,16 +43,16 @@ module Clip
 
     def run
       # Calculate first delta time
-      if @start_time > 0 || @is_stop
-        delta_time = @start_time
+      delta_time = if @start_time > 0 || @is_stop
+        @start_time
       else
-        delta_time = min_delta_time
+        min_delta_time
       end
 
       # Turn off is_first_update flag
       root.update(0)
-      
-      while System.update do
+
+      while System.update
         # Divide into small time and execute update
         t = delta_time == 0 ? 0 : min_delta_time
         total_delta_time = 0
@@ -82,10 +82,8 @@ module Clip
         if prev_hidden != @is_hidden
           window_resize
         end
-      
-        unless @is_stop
-          delta_time = min_delta_time
-        else
+
+        if @is_stop
           if @time < prev_time
             root.children.each do |c|
               c.reset
@@ -97,6 +95,8 @@ module Clip
             delta_time = @time - prev_time
             @time -= delta_time
           end
+        else
+          delta_time = min_delta_time
         end
       end
     end
@@ -105,6 +105,6 @@ module Clip
   $clip_manager = ClipManager.new(
     Object.const_defined?("CLIP_MANAGER_START_TIME") ? CLIP_MANAGER_START_TIME : nil,
     Object.const_defined?("CLIP_MANAGER_IS_STOP") ? CLIP_MANAGER_IS_STOP : nil,
-    Object.const_defined?("CLIP_MANAGER_IS_LOOP") ? CLIP_MANAGER_IS_LOOP : nil,
+    Object.const_defined?("CLIP_MANAGER_IS_LOOP") ? CLIP_MANAGER_IS_LOOP : nil
   )
 end

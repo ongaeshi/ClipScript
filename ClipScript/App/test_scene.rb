@@ -1,4 +1,4 @@
-require 'clip'
+require "clip"
 
 font = Font.new(50)
 
@@ -27,7 +27,7 @@ script do |root|
   root.scene_script do |scene|
     t = scene.text(font, 0, 100, text: "シーン2")
 
-    1.upto 30 do 
+    1.upto 30 do
       t.text += "2"
       scene.wait 0.1
     end

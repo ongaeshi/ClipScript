@@ -1,4 +1,4 @@
-require 'clip'
+require "clip"
 
 App.window_size(400, 225)
 App.end_time = 5

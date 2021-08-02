@@ -1,4 +1,4 @@
-require 'clip'
+require "clip"
 
 $font = Font.new(50)
 
@@ -35,7 +35,7 @@ script do |c|
 
   1.upto(9) do |x|
     1.upto(9) do |y|
-      t.append "#{x} × #{y} = #{x*y}\n"
+      t.append "#{x} × #{y} = #{x * y}\n"
       c.wait 0.5
     end
     # c.enter(t)

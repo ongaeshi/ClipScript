@@ -1,4 +1,4 @@
-require 'clip'
+require "clip"
 
 test_gif = GifReader.new("example/test.gif")
 font = Font.new(30)

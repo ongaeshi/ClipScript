@@ -1,4 +1,4 @@
-require 'clip_manager'
+require "clip_manager"
 
 module Clip
   def script(&block)
@@ -23,7 +23,7 @@ module Clip
     "white" => "#FFFFFF",
     "silver" => "#DDDDDD",
     "gray" => "#AAAAAA",
-    "black" => "#111111",
+    "black" => "#111111"
   }
 
   class App
@@ -48,4 +48,3 @@ module Clip
     end
   end
 end
-

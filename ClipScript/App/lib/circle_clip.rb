@@ -1,5 +1,5 @@
-require 'clip_object'
-require 'drawer'
+require "clip_object"
+require "drawer"
 
 module Clip
   class CircleClip < ClipObject

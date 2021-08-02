@@ -1,4 +1,4 @@
-require 'clip_object'
+require "clip_object"
 
 module Clip
   class LineClip < ClipObject

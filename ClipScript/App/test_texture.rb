@@ -1,7 +1,7 @@
 # CLIP_MANAGER_START_TIME = 8
 # CLIP_MANAGER_IS_STOP = true
 
-require 'clip'
+require "clip"
 
 App.end_time = 20
 
@@ -104,13 +104,12 @@ script do |c|
   loop do
     rotate += rot_speed
 
+    t.text = "rotate(#{rotate})"
     if rotate >= 30
-      t.text = "rotate(#{rotate})"
       rotate = 30
       w.rotate = 30
       break
     else
-      t.text = "rotate(#{rotate})"
       w.rotate = rotate
     end
     c.wait_delta
