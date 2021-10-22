@@ -2,7 +2,6 @@ require "clip"
 
 App.window_size(400, 225)
 
-font_s = Font.new(40)
 font = Font.new(50)
 smile = Texture.new(Emoji.new("😀"))
 
