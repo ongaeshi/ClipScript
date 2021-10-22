@@ -211,7 +211,9 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = 0.0f;
             } else {
-                time -= 1.0;
+                // TODO: option argument?
+                // time -= 1.0;
+                time -= MinDeltaTime;
             }
         }
     }
