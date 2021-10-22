@@ -255,6 +255,19 @@ mrb_value siv3d_strlen(mrb_state* mrb, mrb_value self)
     return mrb_fixnum_value(Unicode::FromUTF8(mrb_string_value_ptr(mrb, str)).length());
 }
 
+mrb_value has_new_file_paths(mrb_state* mrb, mrb_value self)
+{
+    mrb_value str;
+    return mrb_bool_value(DragDrop::HasNewFilePaths());
+}
+
+mrb_value get_dropped_file_path(mrb_state* mrb, mrb_value self)
+{
+    mrb_value str;
+    auto path = DragDrop::GetDroppedFilePaths()[0].path;
+    return mrb_str_new_cstr(mrb, path.toUTF8().c_str());
+}
+
 }
 
 //----------------------------------------------------------
@@ -340,6 +353,13 @@ void MrbMisc::Init(mrb_state* mrb)
         struct RClass* cc = mrb_define_module(mrb, "Siv3d");
 
         mrb_define_class_method(mrb, cc, "strlen", siv3d_strlen, MRB_ARGS_REQ(1));
+    }
+
+    {
+        struct RClass* cc = mrb_define_module(mrb, "DragDrop");
+
+        mrb_define_class_method(mrb, cc, "has_new_file_paths", has_new_file_paths, MRB_ARGS_NONE());
+        mrb_define_class_method(mrb, cc, "get_dropped_file_path", get_dropped_file_path, MRB_ARGS_NONE());
     }
 }
 
