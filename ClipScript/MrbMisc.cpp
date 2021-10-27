@@ -232,6 +232,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
 
 #if true
+        if (KeyS.down()) {
+            is_slow = !is_slow;
+        }
+
         bool isSlow = is_slow;
 
         if (SimpleGUI::CheckBox(isSlow, U"🐢", Vec2(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY))) {

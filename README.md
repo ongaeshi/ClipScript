@@ -65,7 +65,8 @@ App.run
 |  キー  | 説明  |
 | ---- | ---- |
 |  SPACE  |  PLAY/STOP  |
+|  S      | SLOW PLAY |
 |  →      |  TIME++  |
 |  Ctrl + → |  TIME = end_time  |
-|  ←      |  TIME -= 1  |
+|  ←      |  TIME--   |
 |  Ctrl + ← |  TIME = 0  |
