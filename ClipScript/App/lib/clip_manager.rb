@@ -2,8 +2,8 @@ require "clip_object"
 
 module Clip
   class ClipManager
-    attr_reader :root, :time
-    attr_accessor :start_time, :end_time, :is_stop, :is_loop, :is_hidden
+    attr_reader :root, :time, :width, :height
+    attr_accessor :start_time, :end_time, :is_stop, :is_loop, :is_hidden, :min_delta_rate
 
     def initialize(start_time = nil, is_stop = nil, is_loop = nil)
       @root = RootClip.new
@@ -15,6 +15,7 @@ module Clip
       @is_hidden = false
       @width = 800
       @height = 600
+      @min_delta_rate = 1
     end
 
     def window_size(x, y)
@@ -41,7 +42,15 @@ module Clip
       BlockClip.new(root, &block)
     end
 
-    def run
+    def reset
+      @time = 0
+
+      root.children.each do |c|
+        c.reset
+      end
+    end
+
+    def run(&block)
       # Calculate first delta time
       delta_time = if @start_time > 0 || @is_stop
         @start_time
@@ -53,6 +62,8 @@ module Clip
       root.update(0)
 
       while System.update
+        block.call(self) if block
+
         # Divide into small time and execute update
         t = delta_time == 0 ? 0 : min_delta_time
         total_delta_time = 0
@@ -67,11 +78,7 @@ module Clip
         root.draw
 
         if @time > @end_time && @is_loop
-          @time = 0
-
-          root.children.each do |c|
-            c.reset
-          end
+          reset
         end
 
         prev_time = @time
@@ -79,18 +86,16 @@ module Clip
 
         @time, @is_stop, @is_loop, @is_hidden = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden)
 
+        @min_delta_rate = @is_loop ? 1 : 0.1 # TODO: 専用UI
+
         if prev_hidden != @is_hidden
           window_resize
         end
 
         if @is_stop
           if @time < prev_time
-            root.children.each do |c|
-              c.reset
-            end
-
             delta_time = @time
-            @time = 0.0
+            reset
           else
             delta_time = @time - prev_time
             @time -= delta_time
@@ -99,6 +104,12 @@ module Clip
           delta_time = min_delta_time
         end
       end
+    end
+
+    MIN_DELTA_BASE = (1.0 / 60) # Assume 60fps
+
+    def min_delta_time
+      MIN_DELTA_BASE * @min_delta_rate
     end
   end
 

@@ -27,6 +27,18 @@ module Clip
   }
 
   class App
+    def self.time
+      $clip_manager.time
+    end
+
+    def self.width
+      $clip_manager.width
+    end
+
+    def self.height
+      $clip_manager.height
+    end
+
     def self.window_size(x, y)
       $clip_manager.window_size(x, y)
     end
@@ -43,8 +55,12 @@ module Clip
       $clip_manager.end_time = time
     end
 
-    def self.run
-      $clip_manager.run
+    def self.run(&block)
+      $clip_manager.run(&block)
+    end
+
+    def self.reset
+      $clip_manager.reset
     end
   end
 end

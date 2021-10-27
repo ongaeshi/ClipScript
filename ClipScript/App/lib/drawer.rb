@@ -14,6 +14,12 @@ module Drawer
   end
   module_function :circle
 
+  def line(x0, y0, x1, y1, thickness, color)
+    color = to_color(color)
+    Line.new(x0, y0, x1, y1).draw(thickness, color)
+  end
+  module_function :line
+
   def rect(x, y, w, h, color)
     color = to_color(color)
     Rect.new(x, y, w, h).draw(color)

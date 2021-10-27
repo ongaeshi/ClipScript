@@ -15,7 +15,7 @@ module Clip
     end
 
     def draw
-      Line.new(@x0, @y0, @x1, @y1).draw(@thickness, @color)
+      Drawer.line(@x0, @y0, @x1, @y1, @thickness, @color)
     end
   end
 

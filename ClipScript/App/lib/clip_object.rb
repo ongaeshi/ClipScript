@@ -88,6 +88,10 @@ module Clip
 
     def wait_delta = wait(min_delta_time)
 
+    def min_delta_time
+      $clip_manager.min_delta_time
+    end
+
     def until_time(t)
       @target_time = t
       loop do
