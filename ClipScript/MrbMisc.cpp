@@ -156,8 +156,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     const float MinDeltaTime = 1.0f / 60;
 
     mrb_float time, end_time;
-    mrb_bool is_stop, is_loop, is_hidden;
-    mrb_get_args(mrb, "ffbbb", &time, &end_time, &is_stop, &is_loop, &is_hidden);
+    mrb_bool is_stop, is_loop, is_hidden, is_slow;
+    mrb_get_args(mrb, "ffbbbb", &time, &end_time, &is_stop, &is_loop, &is_hidden, &is_slow);
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
@@ -232,10 +232,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
 
 #if true
-        bool isSlow = false;
+        bool isSlow = is_slow;
 
         if (SimpleGUI::CheckBox(isSlow, U"🐢", Vec2(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY))) {
-            // is_slow = isSlow;
+            is_slow = isSlow;
         }
 #else
         if (Cursor::Pos().y < UiPosY) {
@@ -253,6 +253,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_ary_push(mrb, array, mrb_bool_value(is_stop));
     mrb_ary_push(mrb, array, mrb_bool_value(is_loop));
     mrb_ary_push(mrb, array, mrb_bool_value(is_hidden));
+    mrb_ary_push(mrb, array, mrb_bool_value(is_slow));
     return array;
 }
 
