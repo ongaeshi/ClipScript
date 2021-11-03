@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 namespace siv3druby {
 class MrbImage
-    : public MrbObject<Texture>
+    : public MrbObject<Image>
 {
 public:
     static void Init(mrb_state *mrb);

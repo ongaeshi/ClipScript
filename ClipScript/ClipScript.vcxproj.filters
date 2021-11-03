@@ -426,6 +426,9 @@
     <ClCompile Include="MrbGifReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -879,6 +882,9 @@
     </ClInclude>
     <ClInclude Include="MrbGifReader.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbImage.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

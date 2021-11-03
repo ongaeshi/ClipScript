@@ -120,6 +120,7 @@
     <ClCompile Include="MrbFont.cpp" />
     <ClCompile Include="MrbGifReader.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
+    <ClCompile Include="MrbImage.cpp" />
     <ClCompile Include="MrbLine.cpp" />
     <ClCompile Include="MrbLineString.cpp" />
     <ClCompile Include="MrbMisc.cpp" />
@@ -356,6 +357,7 @@
     <ClInclude Include="MrbFont.hpp" />
     <ClInclude Include="MrbGifReader.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
+    <ClInclude Include="MrbImage.hpp" />
     <ClInclude Include="MrbLine.hpp" />
     <ClInclude Include="MrbLineString.hpp" />
     <ClInclude Include="MrbMisc.hpp" />
