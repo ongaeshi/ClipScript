@@ -15,6 +15,7 @@ void MrbDynamicTexture::Init(mrb_state* mrb)
 
     mrb_define_method(mrb, Cc(), "initialize", initialize, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, Cc(), "fill", fill, MRB_ARGS_REQ(1));
+    mrb_define_method(mrb, Cc(), "draw", draw, MRB_ARGS_NONE());
 }
 
 //----------------------------------------------------------
@@ -36,6 +37,13 @@ mrb_value MrbDynamicTexture::fill(mrb_state *mrb, mrb_value self)
 
     auto isSuccess = Self(self).fill(*MrbImage::ToCpp(mrb, image));
     return mrb_bool_value(isSuccess);
+}
+
+//----------------------------------------------------------
+mrb_value MrbDynamicTexture::draw(mrb_state *mrb, mrb_value self)
+{
+    Self(self).draw();
+    return mrb_nil_value();
 }
 
 }
