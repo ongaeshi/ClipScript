@@ -429,6 +429,9 @@
     <ClCompile Include="MrbImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MrbDynamicTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -885,6 +888,9 @@
     </ClInclude>
     <ClInclude Include="MrbImage.hpp">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MrbDynamicTexture.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
