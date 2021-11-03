@@ -14,5 +14,6 @@ private:
     static mrb_value initialize(mrb_state *mrb, mrb_value self);
     static mrb_value draw(mrb_state *mrb, mrb_value self);
     static mrb_value draw_arrow(mrb_state *mrb, mrb_value self);
+    static mrb_value overwrite(mrb_state* mrb, mrb_value self);
 };
 }
