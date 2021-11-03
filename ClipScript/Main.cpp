@@ -6,6 +6,7 @@
 #include "MrbCircle.hpp"
 #include "MrbColorF.hpp"
 #include "MrbDrawableText.hpp"
+#include "MrbDynamicTexture.hpp"
 #include "MrbEmoji.hpp"
 #include "MrbFont.hpp"
 #include "MrbGifReader.hpp"
@@ -70,6 +71,7 @@ namespace siv3druby {
         MrbCircle::Init(mrb);
         MrbColorF::Init(mrb);
         MrbDrawableText::Init(mrb);
+        MrbDynamicTexture::Init(mrb);
         MrbEmoji::Init(mrb);
         MrbFont::Init(mrb);
         MrbGifReader::Init(mrb);
