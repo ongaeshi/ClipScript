@@ -10,6 +10,7 @@
 #include "MrbFont.hpp"
 #include "MrbGifReader.hpp"
 #include "MrbHSV.hpp"
+#include "MrbImage.hpp"
 #include "MrbLine.hpp"
 #include "MrbLineString.hpp"
 #include "MrbMisc.hpp"
@@ -73,6 +74,7 @@ namespace siv3druby {
         MrbFont::Init(mrb);
         MrbGifReader::Init(mrb);
         MrbHSV::Init(mrb);
+        MrbImage::Init(mrb);
         MrbLine::Init(mrb);
         MrbLineString::Init(mrb);
         MrbMisc::Init(mrb);
