@@ -16,7 +16,7 @@ void MrbLine::Init(mrb_state* mrb)
     mrb_define_method(mrb, Cc(), "initialize", initialize, MRB_ARGS_REQ(4));    
     mrb_define_method(mrb, Cc(), "draw", draw, MRB_ARGS_OPT(2));
     mrb_define_method(mrb, Cc(), "draw_arrow", draw_arrow, MRB_ARGS_OPT(2));
-    mrb_define_method(mrb, Cc(), "overwrite", overwrite, MRB_ARGS_OPT(2));
+    mrb_define_method(mrb, Cc(), "overwrite", overwrite, MRB_ARGS_REQ(3));
 }
 
 //----------------------------------------------------------
