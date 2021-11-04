@@ -6,10 +6,12 @@
 #include "MrbCircle.hpp"
 #include "MrbColorF.hpp"
 #include "MrbDrawableText.hpp"
+#include "MrbDynamicTexture.hpp"
 #include "MrbEmoji.hpp"
 #include "MrbFont.hpp"
 #include "MrbGifReader.hpp"
 #include "MrbHSV.hpp"
+#include "MrbImage.hpp"
 #include "MrbLine.hpp"
 #include "MrbLineString.hpp"
 #include "MrbMisc.hpp"
@@ -69,10 +71,12 @@ namespace siv3druby {
         MrbCircle::Init(mrb);
         MrbColorF::Init(mrb);
         MrbDrawableText::Init(mrb);
+        MrbDynamicTexture::Init(mrb);
         MrbEmoji::Init(mrb);
         MrbFont::Init(mrb);
         MrbGifReader::Init(mrb);
         MrbHSV::Init(mrb);
+        MrbImage::Init(mrb);
         MrbLine::Init(mrb);
         MrbLineString::Init(mrb);
         MrbMisc::Init(mrb);

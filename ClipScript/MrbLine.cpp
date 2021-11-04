@@ -1,5 +1,6 @@
 #include "MrbLine.hpp"
 
+#include "MrbImage.hpp"
 #include "MrbVec2.hpp"
 #include "Util.hpp"
 
@@ -15,6 +16,7 @@ void MrbLine::Init(mrb_state* mrb)
     mrb_define_method(mrb, Cc(), "initialize", initialize, MRB_ARGS_REQ(4));    
     mrb_define_method(mrb, Cc(), "draw", draw, MRB_ARGS_OPT(2));
     mrb_define_method(mrb, Cc(), "draw_arrow", draw_arrow, MRB_ARGS_OPT(2));
+    mrb_define_method(mrb, Cc(), "overwrite", overwrite, MRB_ARGS_REQ(3));
 }
 
 //----------------------------------------------------------
@@ -74,6 +76,17 @@ mrb_value MrbLine::draw_arrow(mrb_state *mrb, mrb_value self)
     }
 
     return mrb_nil_value();
+}
+
+//----------------------------------------------------------
+mrb_value MrbLine::overwrite(mrb_state* mrb, mrb_value self)
+{
+    mrb_value image, color;
+    mrb_int thickness;
+    mrb_get_args(mrb, "oio", &image, &thickness, &color);
+
+    Self(self).overwrite(*MrbImage::ToCpp(mrb, image), thickness, Util::ToColor(mrb, color));
+    return self;
 }
 
 }

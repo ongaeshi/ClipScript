@@ -116,10 +116,12 @@
     <ClCompile Include="MrbCircle.cpp" />
     <ClCompile Include="MrbColorF.cpp" />
     <ClCompile Include="MrbDrawableText.cpp" />
+    <ClCompile Include="MrbDynamicTexture.cpp" />
     <ClCompile Include="MrbEmoji.cpp" />
     <ClCompile Include="MrbFont.cpp" />
     <ClCompile Include="MrbGifReader.cpp" />
     <ClCompile Include="MrbHSV.cpp" />
+    <ClCompile Include="MrbImage.cpp" />
     <ClCompile Include="MrbLine.cpp" />
     <ClCompile Include="MrbLineString.cpp" />
     <ClCompile Include="MrbMisc.cpp" />
@@ -352,10 +354,12 @@
     <ClInclude Include="MrbCircle.hpp" />
     <ClInclude Include="MrbColorF.hpp" />
     <ClInclude Include="MrbDrawableText.hpp" />
+    <ClInclude Include="MrbDynamicTexture.hpp" />
     <ClInclude Include="MrbEmoji.hpp" />
     <ClInclude Include="MrbFont.hpp" />
     <ClInclude Include="MrbGifReader.hpp" />
     <ClInclude Include="MrbHSV.hpp" />
+    <ClInclude Include="MrbImage.hpp" />
     <ClInclude Include="MrbLine.hpp" />
     <ClInclude Include="MrbLineString.hpp" />
     <ClInclude Include="MrbMisc.hpp" />
