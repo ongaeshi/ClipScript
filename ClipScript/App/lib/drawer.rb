@@ -20,6 +20,12 @@ module Drawer
   end
   module_function :line
 
+  def line_to_image(image, x0, y0, x1, y1, thickness, color)
+    color = to_color(color)
+    Line.new(x0, y0, x1, y1).overwrite(image, thickness, color)
+  end
+  module_function :line_to_image
+
   def rect(x, y, w, h, color)
     color = to_color(color)
     Rect.new(x, y, w, h).draw(color)

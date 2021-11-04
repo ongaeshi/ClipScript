@@ -86,7 +86,7 @@ module Clip
 
         @time, @is_stop, @is_loop, @is_hidden, @is_slow = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden, @is_slow)
 
-        @min_delta_rate = @is_slow ? 0.2 : 1
+        @min_delta_rate = @is_slow ? 0.25 : 1
 
         if prev_hidden != @is_hidden
           window_resize
