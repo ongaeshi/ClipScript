@@ -221,6 +221,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_hidden = !is_hidden;
     }
 
+    mrb_value saving_gif_path = mrb_nil_value();
+
     if (!is_hidden) {
         bool isLoop = is_loop;
 
@@ -248,7 +250,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
             auto path = Dialog::SaveFile({ FileFilter::GIF() });
-            Print(path);
+            // Print(path);
+            saving_gif_path = mrb_str_new_cstr(mrb, path->toUTF8().c_str());
         }
     }
 
@@ -258,6 +261,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_ary_push(mrb, array, mrb_bool_value(is_loop));
     mrb_ary_push(mrb, array, mrb_bool_value(is_hidden));
     mrb_ary_push(mrb, array, mrb_bool_value(is_slow));
+    mrb_ary_push(mrb, array, saving_gif_path);
     return array;
 }
 
