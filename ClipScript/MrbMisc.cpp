@@ -247,7 +247,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 #endif
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
-            Print(U"HI👩");
+            auto path = Dialog::SaveFile({ FileFilter::GIF() });
+            Print(path);
         }
     }
 
