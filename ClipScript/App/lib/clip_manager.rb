@@ -31,8 +31,6 @@ module Clip
     def y_add_offset
       if @is_hidden
         0
-      elsif @width > 400
-        60
       else
         120 # MrbMisc.cpp#UiHeight
       end

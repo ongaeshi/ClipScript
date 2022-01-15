@@ -161,13 +161,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
-    int UiOffsetY = 0;
-    int SliderWidth = Scene::Width() - 350;
-
-    if (Scene::Width() <= 400) {
-        UiOffsetY = 60;
-        SliderWidth = Scene::Width() - 160;
-    }
+    int UiOffsetY = 60;
+    int SliderWidth = Scene::Width() - 160;
 
     const auto UiHeight = 60 + UiOffsetY;
     const auto UiPosY = Scene::Height() - UiHeight;
