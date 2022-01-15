@@ -217,6 +217,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_loop = !is_loop;
     }
 
+    if (KeyF11.down()) {
+        is_hidden = !is_hidden;
+    }
+
     if (!is_hidden) {
         bool isLoop = is_loop;
 
@@ -245,10 +249,6 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
             Print(U"HI👩");
         }
-    }
-
-    if (KeyF11.down()) {
-        is_hidden = !is_hidden;
     }
 
     mrb_value array = mrb_ary_new(mrb);
