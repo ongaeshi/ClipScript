@@ -252,6 +252,10 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_hidden = !is_hidden;
     }
 
+    if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
+        Print(U"HI👩");
+    }
+
     mrb_value array = mrb_ary_new(mrb);
     mrb_ary_push(mrb, array, mrb_float_value(mrb, time));
     mrb_ary_push(mrb, array, mrb_bool_value(is_stop));
