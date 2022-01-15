@@ -241,14 +241,14 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             font(Cursor::Pos()).draw(Scene::Width() - 110, UiPosY + UiOffset + UiOffsetY, Palette::Black);
         }
 #endif
+
+        if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
+            Print(U"HI👩");
+        }
     }
 
     if (KeyF11.down()) {
         is_hidden = !is_hidden;
-    }
-
-    if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
-        Print(U"HI👩");
     }
 
     mrb_value array = mrb_ary_new(mrb);
