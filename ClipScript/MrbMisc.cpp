@@ -258,9 +258,9 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             auto path = Dialog::SaveFile({ FileFilter::GIF() });
             fAnimatedGIFWriter.open(path.value(), Scene::Width(), Scene::Height() - UiHeight);
             ScreenCapture::RequestCurrentFrame();
-            time = fPrevTime = 0.0f;
+            time = fPrevTime = end_time; // It will be zero in the next frame.
             is_stop = false;
-            is_loop = false;
+            is_loop = true;
             is_hidden = true;
             fAnimatedGIFWriterInitilized = true;
         }
@@ -271,8 +271,13 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     } else if (fAnimatedGIFWriter.isOpen()) {
         assert(ScreenCapture::HasNewFrame());
+    
+        if (fPrevTime == end_time) {
+            fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(1.0 / 24));
+            fPrevTime = time;
+            is_loop = false;
 
-        if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
+        } else if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
             fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
             fPrevTime = time;
         }
