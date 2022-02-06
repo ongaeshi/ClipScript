@@ -255,15 +255,12 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
             auto path = Dialog::SaveFile({ FileFilter::GIF() });
-            // Print(path);
-            saving_gif_path = mrb_str_new_cstr(mrb, path->toUTF8().c_str());
             fAnimatedGIFWriter.open(path.value(), Scene::Size());
             ScreenCapture::RequestCurrentFrame();
             fPrevTime = time;
         } else if (fAnimatedGIFWriter.isOpen()) {
             assert(ScreenCapture::HasNewFrame());
             if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
-                //Print(time);
                 fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
                 fPrevTime = time;
             }
@@ -282,7 +279,6 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     mrb_ary_push(mrb, array, mrb_bool_value(is_loop));
     mrb_ary_push(mrb, array, mrb_bool_value(is_hidden));
     mrb_ary_push(mrb, array, mrb_bool_value(is_slow));
-    mrb_ary_push(mrb, array, saving_gif_path);
     return array;
 }
 
