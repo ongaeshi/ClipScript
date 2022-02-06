@@ -82,7 +82,9 @@ module Clip
         prev_time = @time
         prev_hidden = @is_hidden
 
-        @time, @is_stop, @is_loop, @is_hidden, @is_slow = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden, @is_slow)
+        @time, @is_stop, @is_loop, @is_hidden, @is_slow, saving_gif_path = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden, @is_slow)
+
+        p saving_gif_path unless saving_gif_path.nil?
 
         @min_delta_rate = @is_slow ? 0.25 : 1
 
