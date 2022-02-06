@@ -152,6 +152,7 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
 
 namespace {
     AnimatedGIFWriter fAnimatedGIFWriter;
+    mrb_float fPrevTime;
 }
 
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
@@ -258,9 +259,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             saving_gif_path = mrb_str_new_cstr(mrb, path->toUTF8().c_str());
             fAnimatedGIFWriter.open(path.value(), Scene::Size());
             ScreenCapture::RequestCurrentFrame();
+            fPrevTime = time;
         } else if (fAnimatedGIFWriter.isOpen()) {
             assert(ScreenCapture::HasNewFrame());
-            fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame());
+            if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
+                //Print(time);
+                fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
+                fPrevTime = time;
+            }
+
             ScreenCapture::RequestCurrentFrame();
 
             if (time == 0.0f) {
