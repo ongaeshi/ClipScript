@@ -150,6 +150,10 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
     return mrb_float_value(mrb, Math::Radians(deg).asFloat());
 }
 
+namespace {
+    AnimatedGIFWriter fAnimatedGIFWriter;
+}
+
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 {
     static const Font font(20);
@@ -252,6 +256,16 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             auto path = Dialog::SaveFile({ FileFilter::GIF() });
             // Print(path);
             saving_gif_path = mrb_str_new_cstr(mrb, path->toUTF8().c_str());
+            fAnimatedGIFWriter.open(path.value(), Scene::Size());
+            ScreenCapture::RequestCurrentFrame();
+        } else if (fAnimatedGIFWriter.isOpen()) {
+            assert(ScreenCapture::HasNewFrame());
+            fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame());
+            ScreenCapture::RequestCurrentFrame();
+
+            if (time == 0.0f) {
+                fAnimatedGIFWriter.close();
+            }
         }
     }
 
