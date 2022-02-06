@@ -153,6 +153,7 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
 namespace {
     AnimatedGIFWriter fAnimatedGIFWriter;
     mrb_float fPrevTime;
+    bool fAnimatedGIFWriterInitilized;
 }
 
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
@@ -255,29 +256,33 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
             auto path = Dialog::SaveFile({ FileFilter::GIF() });
-            fAnimatedGIFWriter.open(path.value(), Scene::Size());
+            fAnimatedGIFWriter.open(path.value(), Scene::Width(), Scene::Height() - UiHeight);
             ScreenCapture::RequestCurrentFrame();
             time = fPrevTime = 0.0f;
             is_stop = false;
             is_loop = false;
-            //is_hidden = true;
+            is_hidden = true;
+            fAnimatedGIFWriterInitilized = true;
+        }
+    }
 
-        } else if (fAnimatedGIFWriter.isOpen()) {
-            assert(ScreenCapture::HasNewFrame());
+    if (fAnimatedGIFWriterInitilized) {
+        fAnimatedGIFWriterInitilized = false;
 
-            if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
-                fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
-                fPrevTime = time;
-            }
+    } else if (fAnimatedGIFWriter.isOpen()) {
+        assert(ScreenCapture::HasNewFrame());
 
-            ScreenCapture::RequestCurrentFrame();
+        if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
+            fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
+            fPrevTime = time;
+        }
 
-            if (time == end_time) {
-                fAnimatedGIFWriter.close();
-                is_stop = false;
-                is_loop = true;
-                //is_hidden = false;
-            }
+        ScreenCapture::RequestCurrentFrame();
+
+        if (time >= end_time) {
+            fAnimatedGIFWriter.close();
+            is_loop = true;
+            is_hidden = false;
         }
     }
 
