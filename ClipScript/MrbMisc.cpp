@@ -153,7 +153,8 @@ mrb_value radians(mrb_state *mrb, mrb_value self)
 namespace {
     AnimatedGIFWriter fAnimatedGIFWriter;
     mrb_float fPrevTime;
-    bool fAnimatedGIFWriterInitilized;
+    FilePath fSavedPath;
+    int fAnimatedGIFWriterInitilized = 0;
 }
 
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
@@ -255,21 +256,26 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 #endif
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
-            auto path = Dialog::SaveFile({ FileFilter::GIF() });
-            fAnimatedGIFWriter.open(path.value(), Scene::Width(), Scene::Height() - UiHeight);
-            ScreenCapture::RequestCurrentFrame();
+            fSavedPath = Dialog::SaveFile({ FileFilter::GIF() }).value();
             time = fPrevTime = end_time; // It will be zero in the next frame.
             is_stop = false;
             is_loop = true;
             is_hidden = true;
-            fAnimatedGIFWriterInitilized = true;
+            fAnimatedGIFWriterInitilized = 1;
         }
     }
 
-    if (fAnimatedGIFWriterInitilized) {
-        fAnimatedGIFWriterInitilized = false;
+    if (fAnimatedGIFWriterInitilized == 1) {
+        fAnimatedGIFWriterInitilized = 2;
+    } else if (fAnimatedGIFWriterInitilized == 2) {
+        if (!fAnimatedGIFWriter.isOpen()) {
+            fAnimatedGIFWriter.open(fSavedPath, Scene::Size());
+        }
 
-    } else if (fAnimatedGIFWriter.isOpen()) {
+        fAnimatedGIFWriterInitilized = 3;
+        ScreenCapture::RequestCurrentFrame();
+
+    } else if (fAnimatedGIFWriterInitilized == 3) {
         assert(ScreenCapture::HasNewFrame());
     
         if (fPrevTime == end_time) {
@@ -288,6 +294,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             fAnimatedGIFWriter.close();
             is_loop = true;
             is_hidden = false;
+            fAnimatedGIFWriterInitilized = 0;
         }
     }
 
