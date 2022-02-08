@@ -243,14 +243,16 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
     if (KeyControl.pressed() && KeyS.down()) {
         fGifSaveState = GifSaveState::SetPath;
-        fSavedPath = Dialog::SaveFile({ FileFilter::GIF() }).value();
-        time = fPrevTime = end_time; // It will be zero in the next frame.
-        is_stop = false;
-        is_loop = true;
-        is_hidden = true;
-    }
+        auto path = Dialog::SaveFile({ FileFilter::GIF() });
 
-    mrb_value saving_gif_path = mrb_nil_value();
+        if (path.has_value()) {
+            fSavedPath = path.value();
+            time = fPrevTime = end_time; // It will be zero in the next frame.
+            is_stop = false;
+            is_loop = true;
+            is_hidden = true;
+        }
+    }
 
     if (!is_hidden) {
         bool isLoop = is_loop;
@@ -279,11 +281,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
             fGifSaveState = GifSaveState::SetPath;
-            fSavedPath = Dialog::SaveFile({ FileFilter::GIF() }).value();
-            time = fPrevTime = end_time; // It will be zero in the next frame.
-            is_stop = false;
-            is_loop = true;
-            is_hidden = true;
+            auto path = Dialog::SaveFile({ FileFilter::GIF() });
+
+            if (path.has_value()) {
+                fSavedPath = path.value();
+                time = fPrevTime = end_time; // It will be zero in the next frame.
+                is_stop = false;
+                is_loop = true;
+                is_hidden = true;
+            }
         }
     }
 
