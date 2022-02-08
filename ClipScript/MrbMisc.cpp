@@ -267,12 +267,12 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 #endif
 
         if (SimpleGUI::Button(U"💾", Vec2(10, UiPosY + UiOffset + UiOffsetY))) {
+            fGifSaveState = GifSaveState::SetPath;
             fSavedPath = Dialog::SaveFile({ FileFilter::GIF() }).value();
             time = fPrevTime = end_time; // It will be zero in the next frame.
             is_stop = false;
             is_loop = true;
             is_hidden = true;
-            fGifSaveState = GifSaveState::SetPath;
         }
     }
 
@@ -281,11 +281,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         fGifSaveState = GifSaveState::Wait;
         break;
     case GifSaveState::Wait:
-        if (!fAnimatedGIFWriter.isOpen()) {
-            fAnimatedGIFWriter.open(fSavedPath, Scene::Size());
-        }
-
         fGifSaveState = GifSaveState::WriteFrame;
+        fAnimatedGIFWriter.open(fSavedPath, Scene::Size());
         ScreenCapture::RequestCurrentFrame();
         break;
     case GifSaveState::WriteFrame:
@@ -301,14 +298,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             fPrevTime = time;
         }
 
-        ScreenCapture::RequestCurrentFrame();
-
         if (time >= end_time) {
             fAnimatedGIFWriter.close();
             is_loop = true;
             is_hidden = false;
             fGifSaveState = GifSaveState::None;
+        } else {
+            ScreenCapture::RequestCurrentFrame();
         }
+
         break;
     }
 
