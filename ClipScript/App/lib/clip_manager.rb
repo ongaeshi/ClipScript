@@ -5,7 +5,7 @@ module Clip
     attr_reader :root, :time, :width, :height
     attr_accessor :start_time, :end_time, :is_stop, :is_loop, :is_hidden, :min_delta_rate
 
-    def initialize(start_time = nil, is_stop = nil, is_loop = nil)
+    def initialize(start_time = nil, is_stop = nil, is_loop = nil, slow_delta_rate = nil)
       @root = RootClip.new
       @time = 0.0
       @start_time = start_time || 0.0
@@ -16,6 +16,7 @@ module Clip
       @width = 800
       @height = 600
       @min_delta_rate = 1
+      @slow_delta_rate = slow_delta_rate || 0.25
     end
 
     def window_size(x, y)
@@ -84,7 +85,7 @@ module Clip
 
         @time, @is_stop, @is_loop, @is_hidden, @is_slow = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden, @is_slow)
 
-        @min_delta_rate = @is_slow ? 0.25 : 1
+        @min_delta_rate = @is_slow ? @slow_delta_rate : 1
 
         if prev_hidden != @is_hidden
           window_resize
@@ -114,6 +115,7 @@ module Clip
   $clip_manager = ClipManager.new(
     Object.const_defined?("CLIP_MANAGER_START_TIME") ? CLIP_MANAGER_START_TIME : nil,
     Object.const_defined?("CLIP_MANAGER_IS_STOP") ? CLIP_MANAGER_IS_STOP : nil,
-    Object.const_defined?("CLIP_MANAGER_IS_LOOP") ? CLIP_MANAGER_IS_LOOP : nil
+    Object.const_defined?("CLIP_MANAGER_IS_LOOP") ? CLIP_MANAGER_IS_LOOP : nil,
+    Object.const_defined?("CLIP_MANAGER_SLOW_DELTA_RATE") ? CLIP_MANAGER_SLOW_DELTA_RATE : nil
   )
 end
