@@ -154,7 +154,18 @@ namespace {
     AnimatedGIFWriter fAnimatedGIFWriter;
     mrb_float fPrevTime;
     FilePath fSavedPath;
-    int fAnimatedGIFWriterInitilized = 0;
+
+    enum class GifSaveState
+    {
+        None,
+        SetPath,
+        Wait,
+        Open,
+        WriteFrame,
+
+    };
+
+    GifSaveState fGifSaveState = GifSaveState::None;
 }
 
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
@@ -261,23 +272,25 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             is_stop = false;
             is_loop = true;
             is_hidden = true;
-            fAnimatedGIFWriterInitilized = 1;
+            fGifSaveState = GifSaveState::SetPath;
         }
     }
 
-    if (fAnimatedGIFWriterInitilized == 1) {
-        fAnimatedGIFWriterInitilized = 2;
-    } else if (fAnimatedGIFWriterInitilized == 2) {
+    switch (fGifSaveState) {
+    case GifSaveState::SetPath:
+        fGifSaveState = GifSaveState::Wait;
+        break;
+    case GifSaveState::Wait:
         if (!fAnimatedGIFWriter.isOpen()) {
             fAnimatedGIFWriter.open(fSavedPath, Scene::Size());
         }
 
-        fAnimatedGIFWriterInitilized = 3;
+        fGifSaveState = GifSaveState::WriteFrame;
         ScreenCapture::RequestCurrentFrame();
-
-    } else if (fAnimatedGIFWriterInitilized == 3) {
+        break;
+    case GifSaveState::WriteFrame:
         assert(ScreenCapture::HasNewFrame());
-    
+
         if (fPrevTime == end_time) {
             fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(1.0 / 24));
             fPrevTime = time;
@@ -294,8 +307,9 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             fAnimatedGIFWriter.close();
             is_loop = true;
             is_hidden = false;
-            fAnimatedGIFWriterInitilized = 0;
+            fGifSaveState = GifSaveState::None;
         }
+        break;
     }
 
     mrb_value array = mrb_ary_new(mrb);
