@@ -241,6 +241,15 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         is_hidden = !is_hidden;
     }
 
+    if (KeyControl.pressed() && KeyS.down()) {
+        fGifSaveState = GifSaveState::SetPath;
+        fSavedPath = Dialog::SaveFile({ FileFilter::GIF() }).value();
+        time = fPrevTime = end_time; // It will be zero in the next frame.
+        is_stop = false;
+        is_loop = true;
+        is_hidden = true;
+    }
+
     mrb_value saving_gif_path = mrb_nil_value();
 
     if (!is_hidden) {
