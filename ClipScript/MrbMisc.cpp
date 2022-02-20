@@ -173,7 +173,7 @@ namespace {
 mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 {
     static const Font font(20);
-    const float MinDeltaTime = 1.0f / 60;
+    const double MinDeltaTime = 1.0f / 60;
 
     mrb_float time, end_time;
     mrb_bool is_stop, is_loop, is_hidden, is_slow;
