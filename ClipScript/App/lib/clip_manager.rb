@@ -61,8 +61,6 @@ module Clip
       root.update(0)
 
       while System.update
-        block.call(self) if block
-
         # Divide into small time and execute update
         t = delta_time == 0 ? 0 : min_delta_time
         total_delta_time = 0
@@ -73,6 +71,8 @@ module Clip
           root.update(t)
           break if total_delta_time >= delta_time
         end
+
+        block.call(self) if block
 
         root.draw
 
