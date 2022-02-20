@@ -174,6 +174,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 {
     static const Font font(20);
     const double MinDeltaTime = 1.0f / 60;
+    const double MinDeltaTimeHalf = MinDeltaTime * 0.5; // Prevent next update from being called twice.
 
     mrb_float time, end_time;
     mrb_bool is_stop, is_loop, is_hidden, is_slow;
@@ -216,9 +217,9 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
 
         if (KeyRight.pressed()) {
             if (KeyControl.pressed()) {
-                time = end_time - MinDeltaTime;
+                time = end_time - MinDeltaTimeHalf;
             } else {
-                time += MinDeltaTime;
+                time += MinDeltaTimeHalf;
             }
         }
 
