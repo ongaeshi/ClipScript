@@ -234,7 +234,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = end_time - MinDeltaTimeHalf;
             } else {
-                time += MinDeltaTimeHalf;
+                time += MinDeltaTime * 3 - MinDeltaTimeHalf;
             }
         }
 
@@ -242,9 +242,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = 0.0f;
             } else {
-                // TODO: option argument?
-                // time -= 1.0;
-                time -= MinDeltaTime;
+                time -= MinDeltaTime * 3;
             }
         }
     }
