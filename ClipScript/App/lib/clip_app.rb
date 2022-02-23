@@ -55,8 +55,8 @@ module Clip
       $clip_manager.end_time = time
     end
 
-    def self.run(&block)
-      $clip_manager.run(&block)
+    def self.run(frame_advance_rate = 1, &block)
+      $clip_manager.run(frame_advance_rate, &block)
     end
 
     def self.reset
