@@ -191,9 +191,9 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     const double MinDeltaTime = 1.0f / 60;
     const double MinDeltaTimeHalf = MinDeltaTime * 0.5; // Prevent next update from being called twice.
 
-    mrb_float time, end_time;
+    mrb_float time, end_time, frame_advance_rate;
     mrb_bool is_stop, is_loop, is_hidden, is_slow;
-    mrb_get_args(mrb, "ffbbbb", &time, &end_time, &is_stop, &is_loop, &is_hidden, &is_slow);
+    mrb_get_args(mrb, "ffbbbbf", &time, &end_time, &is_stop, &is_loop, &is_hidden, &is_slow, &frame_advance_rate);
 
     auto button = !is_stop ? U"▶" : U"⏹️";
 
@@ -234,7 +234,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = end_time - MinDeltaTimeHalf;
             } else {
-                time += MinDeltaTime * 3 - MinDeltaTimeHalf;
+                time += MinDeltaTime * frame_advance_rate - MinDeltaTimeHalf;
             }
         }
 
@@ -242,7 +242,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             if (KeyControl.pressed()) {
                 time = 0.0f;
             } else {
-                time -= MinDeltaTime * 3;
+                time -= MinDeltaTime * frame_advance_rate;
             }
         }
     }
