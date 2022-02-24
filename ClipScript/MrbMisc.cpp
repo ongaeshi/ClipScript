@@ -327,7 +327,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     case GifSaveState::WriteFrame:
         assert(ScreenCapture::HasNewFrame());
 
-        if (time - fPrevTime > (1.0 / 24)/*24fps*/) {
+        if (time - fPrevTime > (1.0 / 20)/*20fps*/) {
             fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
             fPrevTime = time;
         }
