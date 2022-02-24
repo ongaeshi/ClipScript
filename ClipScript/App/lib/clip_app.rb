@@ -55,6 +55,10 @@ module Clip
       $clip_manager.end_time = time
     end
 
+    def self.draw_ui(&block)
+      $clip_manager.draw_ui(&block)
+    end
+
     def self.run(frame_advance_rate = 1, &block)
       $clip_manager.run(frame_advance_rate, &block)
     end

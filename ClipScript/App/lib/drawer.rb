@@ -26,9 +26,13 @@ module Drawer
   end
   module_function :line_to_image
 
-  def rect(x, y, w, h, color)
+  def rect(x, y, w, h, color, frame = nil)
     color = to_color(color)
-    Rect.new(x, y, w, h).draw(color)
+    if frame.nil?
+      Rect.new(x, y, w, h).draw(color)
+    else
+      Rect.new(x, y, w, h).draw_frame(frame, color)
+    end
   end
   module_function :rect
 
