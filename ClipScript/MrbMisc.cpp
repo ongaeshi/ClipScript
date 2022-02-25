@@ -198,7 +198,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     auto button = !is_stop ? U"▶" : U"⏹️";
 
     int UiOffsetY = 60;
-    int SliderWidth = Scene::Width() - 160;
+    int SliderWidth = Scene::Width() - 230;
 
     const auto UiHeight = 60 + UiOffsetY;
     const auto UiPosY = Scene::Height() - UiHeight;
@@ -211,7 +211,14 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             is_stop = !is_stop;
         }
 
-        if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(150, UiPosY + UiOffset), SliderWidth)) {
+        if (SimpleGUI::Button(U"|>", Vec2(75, UiPosY + UiOffset))) {
+            if (!is_stop) {
+                is_stop = true;
+            }
+            time += MinDeltaTime * frame_advance_rate - MinDeltaTimeHalf;
+        }
+
+        if (SimpleGUI::Slider(time, 0.0, end_time, Vec2(220, UiPosY + UiOffset), SliderWidth)) {
             is_stop = true;
         }
     }
@@ -275,7 +282,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
             is_loop = isLoop;
         }
 
-        font(U"{:3.2f}"_fmt(time)).draw(80, UiPosY + UiOffset, Palette::Black);
+        font(U"{:3.2f}"_fmt(time)).draw(150, UiPosY + UiOffset, Palette::Black);
 
 #if true
         if (KeyS.down()) {
