@@ -307,6 +307,8 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
         }
     }
 
+    constexpr double GifFrameTime = 1.0 / 20; // 20fps
+
     switch (fGifSaveState) {
     case GifSaveState::SetPath:
         fGifSaveState = GifSaveState::Wait;
@@ -319,7 +321,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     case GifSaveState::FirstWrite:
         assert(ScreenCapture::HasNewFrame());
         fGifSaveState = GifSaveState::WriteFrame;
-        fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(1.0 / 24));
+        fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(GifFrameTime));
         fPrevTime = time;
         is_loop = false;
         ScreenCapture::RequestCurrentFrame();
@@ -327,7 +329,7 @@ mrb_value timeline_ui(mrb_state* mrb, mrb_value self)
     case GifSaveState::WriteFrame:
         assert(ScreenCapture::HasNewFrame());
 
-        if (time - fPrevTime > (1.0 / 20)/*20fps*/) {
+        if (time - fPrevTime > GifFrameTime) {
             fAnimatedGIFWriter.writeFrame(ScreenCapture::GetFrame(), SecondsF(time - fPrevTime));
             fPrevTime = time;
         }
