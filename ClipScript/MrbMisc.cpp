@@ -125,6 +125,21 @@ static mrb_value key_c_up(mrb_state* mrb, mrb_value self)
     return mrb_bool_value(KeyC.up());
 }
 
+static mrb_value key_t_down(mrb_state* mrb, mrb_value self)
+{
+    return mrb_bool_value(KeyT.down());
+}
+
+static mrb_value key_t_pressed(mrb_state* mrb, mrb_value self)
+{
+    return mrb_bool_value(KeyT.pressed());
+}
+
+static mrb_value key_t_up(mrb_state* mrb, mrb_value self)
+{
+    return mrb_bool_value(KeyT.up());
+}
+
 static mrb_value set_background(mrb_state *mrb, mrb_value self)
 {
     mrb_value color;
@@ -440,6 +455,14 @@ void MrbMisc::Init(mrb_state* mrb)
         mrb_define_class_method(mrb, cc, "down", key_c_down, MRB_ARGS_NONE());
         mrb_define_class_method(mrb, cc, "pressed", key_c_pressed, MRB_ARGS_NONE());
         mrb_define_class_method(mrb, cc, "up", key_c_up, MRB_ARGS_NONE());
+    }
+
+    {
+        struct RClass* cc = mrb_define_module(mrb, "KeyT");
+
+        mrb_define_class_method(mrb, cc, "down", key_t_down, MRB_ARGS_NONE());
+        mrb_define_class_method(mrb, cc, "pressed", key_t_pressed, MRB_ARGS_NONE());
+        mrb_define_class_method(mrb, cc, "up", key_t_up, MRB_ARGS_NONE());
     }
 
     {
