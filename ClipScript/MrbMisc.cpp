@@ -149,6 +149,14 @@ static mrb_value set_background(mrb_state *mrb, mrb_value self)
     return mrb_nil_value();
 }
 
+static mrb_value set_title(mrb_state* mrb, mrb_value self)
+{
+    mrb_value title;
+    mrb_get_args(mrb, "S", &title);
+    Window::SetTitle(Unicode::FromUTF8(mrb_string_value_ptr(mrb, title)));
+    return mrb_nil_value();
+}
+
 static mrb_value center(mrb_state *mrb, mrb_value self)
 {
     return MrbVec2::ToMrb(mrb, new Vec2(Scene::Center()));
@@ -474,6 +482,7 @@ void MrbMisc::Init(mrb_state* mrb)
     {
         struct RClass *cc = mrb_define_module(mrb, "Window");
 
+        mrb_define_class_method(mrb, cc, "set_title", set_title, MRB_ARGS_REQ(1));
         mrb_define_class_method(mrb, cc, "center", center, MRB_ARGS_NONE());
         mrb_define_class_method(mrb, cc, "resize", resize, MRB_ARGS_ARG(2, 1));
         mrb_define_class_method(mrb, cc, "width", width, MRB_ARGS_NONE());

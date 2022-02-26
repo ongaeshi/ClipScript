@@ -1,5 +1,7 @@
 require "clip"
 
+Window.set_title("99")
+
 $font = Font.new(50)
 
 class TextScreen < ClipObject
