@@ -2,6 +2,7 @@ require "clip"
 
 App.window_size(400, 450)
 
+# Load gif
 test_gif = GifReader.new("example/test.gif")
 font = Font.new(30)
 
